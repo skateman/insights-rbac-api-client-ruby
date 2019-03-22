@@ -1,0 +1,8 @@
+{
+	"moduleName": "RBACApiClient",
+	"gemName": "rbac-api-client",
+	"gemHomepage" : "https://github.com/ManageIQ/insights-rbac-api-client-ruby",
+	"gemAuthor" : "ManageIQ Authors",
+	"gemLicense" : "Apache-2.0",
+	"gemDescription" : "Ruby client gem to connect to Insights RBAC Service"
+}
