@@ -81,6 +81,15 @@
           },
           {
             "$ref": "#/components/parameters/QueryOffset"
+          },
+          {
+            "name": "usernames",
+            "in": "query",
+            "description": "Usernames of principals to get",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -96,59 +105,6 @@
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Unexpected Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/principals/{username}/": {
-      "get": {
-        "tags": [
-          "Principal"
-        ],
-        "summary": "Get a principal in the tenant",
-        "operationId": "getPrincipal",
-        "parameters": [{
-          "name": "username",
-          "in": "path",
-          "description": "Username of principal to get",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }],
-        "responses": {
-          "200": {
-            "description": "A Principal object",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Principal"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
           },
           "500": {
             "description": "Unexpected Error",
@@ -867,6 +823,12 @@
             "$ref": "#/components/parameters/NameFilter"
           },
           {
+            "$ref": "#/components/parameters/GroupNameFilter"
+          },
+          {
+            "$ref": "#/components/parameters/GroupUUIDFilter"
+          },
+          {
             "$ref": "#/components/parameters/OrderByFilter"
           }
         ],
@@ -1166,6 +1128,25 @@
           "type": "string"
         }
       },
+      "GroupNameFilter": {
+        "in": "query",
+        "name": "group_name",
+        "required": false,
+        "description": "Parameter for filtering resource by group name using string contains search.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "GroupUUIDFilter": {
+        "in": "query",
+        "name": "group_uuid",
+        "required": false,
+        "description": "Parameter for filtering resource by group uuid using UUID exact match.",
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
       "OrderByFilter": {
         "in": "query",
         "name": "order_by",
@@ -1311,10 +1292,6 @@
           "last_name": {
             "type": "string",
             "example": "Smith"
-          },
-          "is_org_admin": {
-            "type": "boolean",
-            "example": true
           }
         }
       },
@@ -1427,7 +1404,7 @@
               "principals": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PrincipalOut"
+                  "$ref": "#/components/schemas/Principal"
                 }
               }
             }
@@ -1576,6 +1553,17 @@
           "policyCount": {
             "type": "integer",
             "minimum": 0
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "catalog"
+            }
+          },
+          "system": {
+            "type": "boolean",
+            "default": false
           }
         }
       },

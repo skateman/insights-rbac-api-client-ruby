@@ -19,61 +19,11 @@ module RBACApiClient
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Get a principal in the tenant
-    # @param username Username of principal to get
-    # @param [Hash] opts the optional parameters
-    # @return [Principal]
-    def get_principal(username, opts = {})
-      data, _status_code, _headers = get_principal_with_http_info(username, opts)
-      data
-    end
-
-    # Get a principal in the tenant
-    # @param username Username of principal to get
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(Principal, Fixnum, Hash)>] Principal data, response status code and response headers
-    def get_principal_with_http_info(username, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: PrincipalApi.get_principal ...'
-      end
-      # verify the required parameter 'username' is set
-      if @api_client.config.client_side_validation && username.nil?
-        fail ArgumentError, "Missing the required parameter 'username' when calling PrincipalApi.get_principal"
-      end
-      # resource path
-      local_var_path = '/principals/{username}/'.sub('{' + 'username' + '}', username.to_s)
-
-      # query parameters
-      query_params = {}
-
-      # header parameters
-      header_params = {}
-      # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
-
-      # form parameters
-      form_params = {}
-
-      # http body (model)
-      post_body = nil
-      auth_names = ['basic_auth']
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => 'Principal')
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: PrincipalApi#get_principal\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
     # List the principals for a tenant
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
+    # @option opts [String] :usernames Usernames of principals to get
     # @return [PrincipalPagination]
     def list_principals(opts = {})
       data, _status_code, _headers = list_principals_with_http_info(opts)
@@ -84,6 +34,7 @@ module RBACApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
+    # @option opts [String] :usernames Usernames of principals to get
     # @return [Array<(PrincipalPagination, Fixnum, Hash)>] PrincipalPagination data, response status code and response headers
     def list_principals_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -108,6 +59,7 @@ module RBACApiClient
       query_params = {}
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
+      query_params[:'usernames'] = opts[:'usernames'] if !opts[:'usernames'].nil?
 
       # header parameters
       header_params = {}

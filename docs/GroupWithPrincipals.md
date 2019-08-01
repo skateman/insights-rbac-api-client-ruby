@@ -8,6 +8,6 @@ Name | Type | Description | Notes
 **uuid** | **String** |  | 
 **created** | **DateTime** |  | 
 **modified** | **DateTime** |  | 
-**principals** | [**Array&lt;PrincipalOut&gt;**](PrincipalOut.md) |  | 
+**principals** | [**Array&lt;Principal&gt;**](Principal.md) |  | 
 
 
