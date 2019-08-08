@@ -178,6 +178,8 @@ opts = {
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
   offset: 0, # Integer | Parameter for selecting the offset of data.
   name: 'name_example', # String | Parameter for filtering resource by name using string contains search.
+  group_name: 'group_name_example', # String | Parameter for filtering resource by group name using string contains search.
+  group_uuid: 'group_uuid_example', # String | Parameter for filtering resource by group uuid using UUID exact match.
   order_by: 'order_by_example' # String | Parameter for ordering resource by value.
 }
 
@@ -197,6 +199,8 @@ Name | Type | Description  | Notes
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
  **name** | **String**| Parameter for filtering resource by name using string contains search. | [optional] 
+ **group_name** | **String**| Parameter for filtering resource by group name using string contains search. | [optional] 
+ **group_uuid** | [**String**](.md)| Parameter for filtering resource by group uuid using UUID exact match. | [optional] 
  **order_by** | **String**| Parameter for ordering resource by value. | [optional] 
 
 ### Return type

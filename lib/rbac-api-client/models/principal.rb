@@ -22,16 +22,13 @@ module RBACApiClient
 
     attr_accessor :last_name
 
-    attr_accessor :is_org_admin
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'username' => :'username',
         :'email' => :'email',
         :'first_name' => :'first_name',
-        :'last_name' => :'last_name',
-        :'is_org_admin' => :'is_org_admin'
+        :'last_name' => :'last_name'
       }
     end
 
@@ -41,8 +38,7 @@ module RBACApiClient
         :'username' => :'String',
         :'email' => :'String',
         :'first_name' => :'String',
-        :'last_name' => :'String',
-        :'is_org_admin' => :'BOOLEAN'
+        :'last_name' => :'String'
       }
     end
 
@@ -68,10 +64,6 @@ module RBACApiClient
 
       if attributes.has_key?(:'last_name')
         self.last_name = attributes[:'last_name']
-      end
-
-      if attributes.has_key?(:'is_org_admin')
-        self.is_org_admin = attributes[:'is_org_admin']
       end
     end
 
@@ -106,8 +98,7 @@ module RBACApiClient
           username == o.username &&
           email == o.email &&
           first_name == o.first_name &&
-          last_name == o.last_name &&
-          is_org_admin == o.is_org_admin
+          last_name == o.last_name
     end
 
     # @see the `==` method
@@ -119,7 +110,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [username, email, first_name, last_name, is_org_admin].hash
+      [username, email, first_name, last_name].hash
     end
 
     # Builds the object from hash

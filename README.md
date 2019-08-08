@@ -79,6 +79,67 @@ end
 
 ```
 
+## Documentation for API Endpoints
+
+All URIs are relative to *http://localhost/api/rbac/v1*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*RBACApiClient::AccessApi* | [**get_principal_access**](docs/AccessApi.md#get_principal_access) | **GET** /access/ | Get the permitted access for a principal in the tenant
+*RBACApiClient::GroupApi* | [**add_principal_to_group**](docs/GroupApi.md#add_principal_to_group) | **POST** /groups/{uuid}/principals/ | Add a principal to a group in the tenant
+*RBACApiClient::GroupApi* | [**create_group**](docs/GroupApi.md#create_group) | **POST** /groups/ | Create a group in a tenant
+*RBACApiClient::GroupApi* | [**delete_group**](docs/GroupApi.md#delete_group) | **DELETE** /groups/{uuid}/ | Delete a group in the tenant
+*RBACApiClient::GroupApi* | [**delete_principal_from_group**](docs/GroupApi.md#delete_principal_from_group) | **DELETE** /groups/{uuid}/principals/ | Remove a principal from a group in the tenant
+*RBACApiClient::GroupApi* | [**get_group**](docs/GroupApi.md#get_group) | **GET** /groups/{uuid}/ | Get a group in the tenant
+*RBACApiClient::GroupApi* | [**list_groups**](docs/GroupApi.md#list_groups) | **GET** /groups/ | List the groups for a tenant
+*RBACApiClient::GroupApi* | [**update_group**](docs/GroupApi.md#update_group) | **PUT** /groups/{uuid}/ | Udate a group in the tenant
+*RBACApiClient::PolicyApi* | [**create_policies**](docs/PolicyApi.md#create_policies) | **POST** /policies/ | Create a policy in a tenant
+*RBACApiClient::PolicyApi* | [**delete_policy**](docs/PolicyApi.md#delete_policy) | **DELETE** /policies/{uuid}/ | Delete a policy in the tenant
+*RBACApiClient::PolicyApi* | [**get_policy**](docs/PolicyApi.md#get_policy) | **GET** /policies/{uuid}/ | Get a policy in the tenant
+*RBACApiClient::PolicyApi* | [**list_policies**](docs/PolicyApi.md#list_policies) | **GET** /policies/ | List the policies in the tenant
+*RBACApiClient::PolicyApi* | [**update_policy**](docs/PolicyApi.md#update_policy) | **PUT** /policies/{uuid}/ | Update a policy in the tenant
+*RBACApiClient::PrincipalApi* | [**list_principals**](docs/PrincipalApi.md#list_principals) | **GET** /principals/ | List the principals for a tenant
+*RBACApiClient::RoleApi* | [**create_roles**](docs/RoleApi.md#create_roles) | **POST** /roles/ | Create a roles for a tenant
+*RBACApiClient::RoleApi* | [**delete_role**](docs/RoleApi.md#delete_role) | **DELETE** /roles/{uuid}/ | Delete a role in the tenant
+*RBACApiClient::RoleApi* | [**get_role**](docs/RoleApi.md#get_role) | **GET** /roles/{uuid}/ | Get a role in the tenant
+*RBACApiClient::RoleApi* | [**list_roles**](docs/RoleApi.md#list_roles) | **GET** /roles/ | List the roles for a tenant
+*RBACApiClient::RoleApi* | [**update_role**](docs/RoleApi.md#update_role) | **PUT** /roles/{uuid}/ | Update a Role in the tenant
+*RBACApiClient::StatusApi* | [**get_status**](docs/StatusApi.md#get_status) | **GET** /status/ | Obtain server status
+
+
+## Documentation for Models
+
+ - [RBACApiClient::Access](docs/Access.md)
+ - [RBACApiClient::AccessPagination](docs/AccessPagination.md)
+ - [RBACApiClient::Error](docs/Error.md)
+ - [RBACApiClient::Group](docs/Group.md)
+ - [RBACApiClient::GroupOut](docs/GroupOut.md)
+ - [RBACApiClient::GroupPagination](docs/GroupPagination.md)
+ - [RBACApiClient::GroupPrincipalIn](docs/GroupPrincipalIn.md)
+ - [RBACApiClient::GroupWithPrincipals](docs/GroupWithPrincipals.md)
+ - [RBACApiClient::ListPagination](docs/ListPagination.md)
+ - [RBACApiClient::PaginationLinks](docs/PaginationLinks.md)
+ - [RBACApiClient::PaginationMeta](docs/PaginationMeta.md)
+ - [RBACApiClient::Policy](docs/Policy.md)
+ - [RBACApiClient::PolicyExtended](docs/PolicyExtended.md)
+ - [RBACApiClient::PolicyIn](docs/PolicyIn.md)
+ - [RBACApiClient::PolicyPagination](docs/PolicyPagination.md)
+ - [RBACApiClient::Principal](docs/Principal.md)
+ - [RBACApiClient::PrincipalIn](docs/PrincipalIn.md)
+ - [RBACApiClient::PrincipalOut](docs/PrincipalOut.md)
+ - [RBACApiClient::PrincipalPagination](docs/PrincipalPagination.md)
+ - [RBACApiClient::ResourceDefinition](docs/ResourceDefinition.md)
+ - [RBACApiClient::ResourceDefinitionFilter](docs/ResourceDefinitionFilter.md)
+ - [RBACApiClient::Role](docs/Role.md)
+ - [RBACApiClient::RoleIn](docs/RoleIn.md)
+ - [RBACApiClient::RoleOut](docs/RoleOut.md)
+ - [RBACApiClient::RolePagination](docs/RolePagination.md)
+ - [RBACApiClient::RoleWithAccess](docs/RoleWithAccess.md)
+ - [RBACApiClient::Status](docs/Status.md)
+ - [RBACApiClient::Timestamped](docs/Timestamped.md)
+ - [RBACApiClient::UUID](docs/UUID.md)
+
+
 ## Documentation for Authorization
 
 
@@ -86,15 +147,3 @@ end
 
 - **Type**: HTTP basic authentication
 
-## Documentation 
-
-[Access Documentation ](docs/AccessApi.md)
-[Group Documentation ](docs/GroupApi.md)
-[Policy Documentation ](docs/PolicyApi.md)
-[Role Documentation ](docs/RoleApi.md)
-[Principal Documentation ](docs/PrincipalApi.md)
-[Status Documentation ](docs/StatusApi.md)
-
-## License
-
-This project is available as open source under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).

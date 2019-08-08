@@ -46,7 +46,7 @@ module RBACApiClient
         :'uuid' => :'String',
         :'created' => :'DateTime',
         :'modified' => :'DateTime',
-        :'principals' => :'Array<PrincipalOut>'
+        :'principals' => :'Array<Principal>'
       }
     end
 

@@ -32,22 +32,12 @@ describe 'PrincipalApi' do
     end
   end
 
-  # unit tests for get_principal
-  # Get a principal in the tenant
-  # @param username Username of principal to get
-  # @param [Hash] opts the optional parameters
-  # @return [Principal]
-  describe 'get_principal test' do
-    it 'should work' do
-      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-    end
-  end
-
   # unit tests for list_principals
   # List the principals for a tenant
   # @param [Hash] opts the optional parameters
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
+  # @option opts [String] :usernames Usernames of principals to get
   # @return [PrincipalPagination]
   describe 'list_principals test' do
     it 'should work' do
