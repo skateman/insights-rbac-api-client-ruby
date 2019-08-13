@@ -178,6 +178,7 @@ module RBACApiClient
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
+    # @option opts [String] :scope Parameter for filtering resource by scope. (default to 'account')
     # @option opts [String] :order_by Parameter for ordering resource by value.
     # @return [RolePagination]
     def list_roles(opts = {})
@@ -190,6 +191,7 @@ module RBACApiClient
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
+    # @option opts [String] :scope Parameter for filtering resource by scope.
     # @option opts [String] :order_by Parameter for ordering resource by value.
     # @return [Array<(RolePagination, Fixnum, Hash)>] RolePagination data, response status code and response headers
     def list_roles_with_http_info(opts = {})
@@ -208,6 +210,9 @@ module RBACApiClient
         fail ArgumentError, 'invalid value for "opts[:"offset"]" when calling RoleApi.list_roles, must be greater than or equal to 0.'
       end
 
+      if @api_client.config.client_side_validation && opts[:'scope'] && !['account', 'principal'].include?(opts[:'scope'])
+        fail ArgumentError, 'invalid value for "scope", must be one of account, principal'
+      end
       # resource path
       local_var_path = '/roles/'
 
@@ -216,6 +221,7 @@ module RBACApiClient
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
       query_params[:'name'] = opts[:'name'] if !opts[:'name'].nil?
+      query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
       query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
 
       # header parameters

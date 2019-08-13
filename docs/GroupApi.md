@@ -281,6 +281,7 @@ opts = {
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
   offset: 0, # Integer | Parameter for selecting the offset of data.
   name: 'name_example', # String | Parameter for filtering resource by name using string contains search.
+  scope: 'account', # String | Parameter for filtering resource by scope.
   username: 'username_example', # String | A username for a principal to filter for groups
   order_by: 'order_by_example' # String | Parameter for ordering resource by value.
 }
@@ -301,6 +302,7 @@ Name | Type | Description  | Notes
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
  **name** | **String**| Parameter for filtering resource by name using string contains search. | [optional] 
+ **scope** | **String**| Parameter for filtering resource by scope. | [optional] [default to &#39;account&#39;]
  **username** | **String**| A username for a principal to filter for groups | [optional] 
  **order_by** | **String**| Parameter for ordering resource by value. | [optional] 
 

@@ -71,6 +71,7 @@ describe 'RoleApi' do
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
   # @option opts [String] :name Parameter for filtering resource by name using string contains search.
+  # @option opts [String] :scope Parameter for filtering resource by scope.
   # @option opts [String] :order_by Parameter for ordering resource by value.
   # @return [RolePagination]
   describe 'list_roles test' do
