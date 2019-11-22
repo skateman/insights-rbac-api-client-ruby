@@ -87,11 +87,14 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *RBACApiClient::AccessApi* | [**get_principal_access**](docs/AccessApi.md#get_principal_access) | **GET** /access/ | Get the permitted access for a principal in the tenant
 *RBACApiClient::GroupApi* | [**add_principal_to_group**](docs/GroupApi.md#add_principal_to_group) | **POST** /groups/{uuid}/principals/ | Add a principal to a group in the tenant
+*RBACApiClient::GroupApi* | [**add_role_to_group**](docs/GroupApi.md#add_role_to_group) | **POST** /groups/{uuid}/roles/ | Add a role to a group in the tenant
 *RBACApiClient::GroupApi* | [**create_group**](docs/GroupApi.md#create_group) | **POST** /groups/ | Create a group in a tenant
 *RBACApiClient::GroupApi* | [**delete_group**](docs/GroupApi.md#delete_group) | **DELETE** /groups/{uuid}/ | Delete a group in the tenant
 *RBACApiClient::GroupApi* | [**delete_principal_from_group**](docs/GroupApi.md#delete_principal_from_group) | **DELETE** /groups/{uuid}/principals/ | Remove a principal from a group in the tenant
+*RBACApiClient::GroupApi* | [**delete_role_from_group**](docs/GroupApi.md#delete_role_from_group) | **DELETE** /groups/{uuid}/roles/ | Remove a role from a group in the tenant
 *RBACApiClient::GroupApi* | [**get_group**](docs/GroupApi.md#get_group) | **GET** /groups/{uuid}/ | Get a group in the tenant
 *RBACApiClient::GroupApi* | [**list_groups**](docs/GroupApi.md#list_groups) | **GET** /groups/ | List the groups for a tenant
+*RBACApiClient::GroupApi* | [**list_roles_for_group**](docs/GroupApi.md#list_roles_for_group) | **GET** /groups/{uuid}/roles/ | List the roles for a group in the tenant
 *RBACApiClient::GroupApi* | [**update_group**](docs/GroupApi.md#update_group) | **PUT** /groups/{uuid}/ | Udate a group in the tenant
 *RBACApiClient::PolicyApi* | [**create_policies**](docs/PolicyApi.md#create_policies) | **POST** /policies/ | Create a policy in a tenant
 *RBACApiClient::PolicyApi* | [**delete_policy**](docs/PolicyApi.md#delete_policy) | **DELETE** /policies/{uuid}/ | Delete a policy in the tenant
@@ -116,7 +119,10 @@ Class | Method | HTTP request | Description
  - [RBACApiClient::GroupOut](docs/GroupOut.md)
  - [RBACApiClient::GroupPagination](docs/GroupPagination.md)
  - [RBACApiClient::GroupPrincipalIn](docs/GroupPrincipalIn.md)
+ - [RBACApiClient::GroupRoleIn](docs/GroupRoleIn.md)
+ - [RBACApiClient::GroupRolesOut](docs/GroupRolesOut.md)
  - [RBACApiClient::GroupWithPrincipals](docs/GroupWithPrincipals.md)
+ - [RBACApiClient::GroupWithPrincipalsAndRoles](docs/GroupWithPrincipalsAndRoles.md)
  - [RBACApiClient::ListPagination](docs/ListPagination.md)
  - [RBACApiClient::PaginationLinks](docs/PaginationLinks.md)
  - [RBACApiClient::PaginationMeta](docs/PaginationMeta.md)

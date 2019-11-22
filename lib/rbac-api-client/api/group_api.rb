@@ -78,6 +78,65 @@ module RBACApiClient
       return data, status_code, headers
     end
 
+    # Add a role to a group in the tenant
+    # @param uuid ID of group to update
+    # @param group_role_in Role to add to a group
+    # @param [Hash] opts the optional parameters
+    # @return [GroupRolesOut]
+    def add_role_to_group(uuid, group_role_in, opts = {})
+      data, _status_code, _headers = add_role_to_group_with_http_info(uuid, group_role_in, opts)
+      data
+    end
+
+    # Add a role to a group in the tenant
+    # @param uuid ID of group to update
+    # @param group_role_in Role to add to a group
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GroupRolesOut, Fixnum, Hash)>] GroupRolesOut data, response status code and response headers
+    def add_role_to_group_with_http_info(uuid, group_role_in, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupApi.add_role_to_group ...'
+      end
+      # verify the required parameter 'uuid' is set
+      if @api_client.config.client_side_validation && uuid.nil?
+        fail ArgumentError, "Missing the required parameter 'uuid' when calling GroupApi.add_role_to_group"
+      end
+      # verify the required parameter 'group_role_in' is set
+      if @api_client.config.client_side_validation && group_role_in.nil?
+        fail ArgumentError, "Missing the required parameter 'group_role_in' when calling GroupApi.add_role_to_group"
+      end
+      # resource path
+      local_var_path = '/groups/{uuid}/roles/'.sub('{' + 'uuid' + '}', uuid.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+      # HTTP header 'Content-Type'
+      header_params['Content-Type'] = @api_client.select_header_content_type(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = @api_client.object_to_http_body(group_role_in)
+      auth_names = ['basic_auth']
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'GroupRolesOut')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupApi#add_role_to_group\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Create a group in a tenant
     # @param group Group to create in tenant
     # @param [Hash] opts the optional parameters
@@ -238,10 +297,67 @@ module RBACApiClient
       return data, status_code, headers
     end
 
+    # Remove a role from a group in the tenant
+    # @param uuid ID of group to update
+    # @param roles A comma separated list of role UUIDs for roles to remove from the group
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_role_from_group(uuid, roles, opts = {})
+      delete_role_from_group_with_http_info(uuid, roles, opts)
+      nil
+    end
+
+    # Remove a role from a group in the tenant
+    # @param uuid ID of group to update
+    # @param roles A comma separated list of role UUIDs for roles to remove from the group
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def delete_role_from_group_with_http_info(uuid, roles, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupApi.delete_role_from_group ...'
+      end
+      # verify the required parameter 'uuid' is set
+      if @api_client.config.client_side_validation && uuid.nil?
+        fail ArgumentError, "Missing the required parameter 'uuid' when calling GroupApi.delete_role_from_group"
+      end
+      # verify the required parameter 'roles' is set
+      if @api_client.config.client_side_validation && roles.nil?
+        fail ArgumentError, "Missing the required parameter 'roles' when calling GroupApi.delete_role_from_group"
+      end
+      # resource path
+      local_var_path = '/groups/{uuid}/roles/'.sub('{' + 'uuid' + '}', uuid.to_s)
+
+      # query parameters
+      query_params = {}
+      query_params[:'roles'] = roles
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['basic_auth']
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupApi#delete_role_from_group\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Get a group in the tenant
     # @param uuid ID of group to get
     # @param [Hash] opts the optional parameters
-    # @return [GroupWithPrincipals]
+    # @return [GroupWithPrincipalsAndRoles]
     def get_group(uuid, opts = {})
       data, _status_code, _headers = get_group_with_http_info(uuid, opts)
       data
@@ -250,7 +366,7 @@ module RBACApiClient
     # Get a group in the tenant
     # @param uuid ID of group to get
     # @param [Hash] opts the optional parameters
-    # @return [Array<(GroupWithPrincipals, Fixnum, Hash)>] GroupWithPrincipals data, response status code and response headers
+    # @return [Array<(GroupWithPrincipalsAndRoles, Fixnum, Hash)>] GroupWithPrincipalsAndRoles data, response status code and response headers
     def get_group_with_http_info(uuid, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: GroupApi.get_group ...'
@@ -282,7 +398,7 @@ module RBACApiClient
         :form_params => form_params,
         :body => post_body,
         :auth_names => auth_names,
-        :return_type => 'GroupWithPrincipals')
+        :return_type => 'GroupWithPrincipalsAndRoles')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GroupApi#get_group\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
@@ -363,6 +479,57 @@ module RBACApiClient
         :return_type => 'GroupPagination')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: GroupApi#list_groups\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # List the roles for a group in the tenant
+    # @param uuid ID of group
+    # @param [Hash] opts the optional parameters
+    # @return [GroupRolesOut]
+    def list_roles_for_group(uuid, opts = {})
+      data, _status_code, _headers = list_roles_for_group_with_http_info(uuid, opts)
+      data
+    end
+
+    # List the roles for a group in the tenant
+    # @param uuid ID of group
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(GroupRolesOut, Fixnum, Hash)>] GroupRolesOut data, response status code and response headers
+    def list_roles_for_group_with_http_info(uuid, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: GroupApi.list_roles_for_group ...'
+      end
+      # verify the required parameter 'uuid' is set
+      if @api_client.config.client_side_validation && uuid.nil?
+        fail ArgumentError, "Missing the required parameter 'uuid' when calling GroupApi.list_roles_for_group"
+      end
+      # resource path
+      local_var_path = '/groups/{uuid}/roles/'.sub('{' + 'uuid' + '}', uuid.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json'])
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      auth_names = ['basic_auth']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'GroupRolesOut')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: GroupApi#list_roles_for_group\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
