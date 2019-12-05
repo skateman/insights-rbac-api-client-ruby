@@ -44,6 +44,18 @@ describe 'GroupApi' do
     end
   end
 
+  # unit tests for add_role_to_group
+  # Add a role to a group in the tenant
+  # @param uuid ID of group to update
+  # @param group_role_in Role to add to a group
+  # @param [Hash] opts the optional parameters
+  # @return [GroupRolesOut]
+  describe 'add_role_to_group test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for create_group
   # Create a group in a tenant
   # @param group Group to create in tenant
@@ -78,11 +90,23 @@ describe 'GroupApi' do
     end
   end
 
+  # unit tests for delete_role_from_group
+  # Remove a role from a group in the tenant
+  # @param uuid ID of group to update
+  # @param roles A comma separated list of role UUIDs for roles to remove from the group
+  # @param [Hash] opts the optional parameters
+  # @return [nil]
+  describe 'delete_role_from_group test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
   # unit tests for get_group
   # Get a group in the tenant
   # @param uuid ID of group to get
   # @param [Hash] opts the optional parameters
-  # @return [GroupWithPrincipals]
+  # @return [GroupWithPrincipalsAndRoles]
   describe 'get_group test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
@@ -100,6 +124,17 @@ describe 'GroupApi' do
   # @option opts [String] :order_by Parameter for ordering resource by value.
   # @return [GroupPagination]
   describe 'list_groups test' do
+    it 'should work' do
+      # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+    end
+  end
+
+  # unit tests for list_roles_for_group
+  # List the roles for a group in the tenant
+  # @param uuid ID of group
+  # @param [Hash] opts the optional parameters
+  # @return [GroupRolesOut]
+  describe 'list_roles_for_group test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
     end
