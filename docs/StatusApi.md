@@ -7,12 +7,15 @@ Method | HTTP request | Description
 [**get_status**](StatusApi.md#get_status) | **GET** /status/ | Obtain server status
 
 
-# **get_status**
+
+## get_status
+
 > Status get_status
 
 Obtain server status
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -21,6 +24,11 @@ RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
   config.username = 'YOUR USERNAME'
   config.password = 'YOUR PASSWORD'
+
+  # Configure API key authorization: identity_auth
+  config.api_key['x-rh-identity'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['x-rh-identity'] = 'Bearer'
 end
 
 api_instance = RBACApiClient::StatusApi.new
@@ -35,6 +43,7 @@ end
 ```
 
 ### Parameters
+
 This endpoint does not need any parameter.
 
 ### Return type
@@ -43,12 +52,10 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[basic_auth](../README.md#basic_auth)
+[basic_auth](../README.md#basic_auth), [identity_auth](../README.md#identity_auth)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
