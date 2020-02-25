@@ -1,9 +1,8 @@
-# RBACApiClient::Timestamped
+# RBACApiClient::GroupRolesOut
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created** | **DateTime** |  | 
-**modified** | **DateTime** |  | 
+**roles** | [**Array&lt;Role&gt;**](Role.md) |  | 
 
 
