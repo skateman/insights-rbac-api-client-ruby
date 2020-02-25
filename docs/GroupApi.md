@@ -11,17 +11,21 @@ Method | HTTP request | Description
 [**delete_principal_from_group**](GroupApi.md#delete_principal_from_group) | **DELETE** /groups/{uuid}/principals/ | Remove a principal from a group in the tenant
 [**delete_role_from_group**](GroupApi.md#delete_role_from_group) | **DELETE** /groups/{uuid}/roles/ | Remove a role from a group in the tenant
 [**get_group**](GroupApi.md#get_group) | **GET** /groups/{uuid}/ | Get a group in the tenant
+[**get_principals_from_group**](GroupApi.md#get_principals_from_group) | **GET** /groups/{uuid}/principals/ | Get a list of principals from a group in the tenant
 [**list_groups**](GroupApi.md#list_groups) | **GET** /groups/ | List the groups for a tenant
 [**list_roles_for_group**](GroupApi.md#list_roles_for_group) | **GET** /groups/{uuid}/roles/ | List the roles for a group in the tenant
 [**update_group**](GroupApi.md#update_group) | **PUT** /groups/{uuid}/ | Udate a group in the tenant
 
 
-# **add_principal_to_group**
-> GroupWithPrincipals add_principal_to_group(uuid, group_principal_in)
+
+## add_principal_to_group
+
+> GroupWithPrincipalsAndRoles add_principal_to_group(uuid, group_principal_in)
 
 Add a principal to a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -47,6 +51,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to update | 
@@ -54,7 +59,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GroupWithPrincipals**](GroupWithPrincipals.md)
+[**GroupWithPrincipalsAndRoles**](GroupWithPrincipalsAndRoles.md)
 
 ### Authorization
 
@@ -62,17 +67,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
+## add_role_to_group
 
-# **add_role_to_group**
-> GroupRolesOut add_role_to_group(uuid, group_role_in)
+> InlineResponse200 add_role_to_group(uuid, group_role_in)
 
 Add a role to a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -98,6 +104,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to update | 
@@ -105,7 +112,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GroupRolesOut**](GroupRolesOut.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -113,17 +120,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
+## create_group
 
-# **create_group**
 > GroupOut create_group(group)
 
 Create a group in a tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -148,6 +156,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **group** | [**Group**](Group.md)| Group to create in tenant | 
@@ -162,17 +171,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 
+## delete_group
 
-# **delete_group**
 > delete_group(uuid)
 
 Delete a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -196,6 +206,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to delete | 
@@ -210,17 +221,18 @@ nil (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: */*
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
 
 
+## delete_principal_from_group
 
-# **delete_principal_from_group**
 > delete_principal_from_group(uuid, usernames)
 
 Remove a principal from a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -245,6 +257,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to update | 
@@ -260,17 +273,18 @@ nil (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## delete_role_from_group
 
-# **delete_role_from_group**
 > delete_role_from_group(uuid, roles)
 
 Remove a role from a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -295,6 +309,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to update | 
@@ -310,17 +325,18 @@ nil (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## get_group
 
-# **get_group**
 > GroupWithPrincipalsAndRoles get_group(uuid)
 
 Get a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -345,6 +361,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to get | 
@@ -359,17 +376,69 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## get_principals_from_group
 
-# **list_groups**
+> PrincipalPagination get_principals_from_group(uuid)
+
+Get a list of principals from a group in the tenant
+
+### Example
+
+```ruby
+# load the gem
+require 'rbac-api-client'
+# setup authorization
+RBACApiClient.configure do |config|
+  # Configure HTTP basic authorization: basic_auth
+  config.username = 'YOUR USERNAME'
+  config.password = 'YOUR PASSWORD'
+end
+
+api_instance = RBACApiClient::GroupApi.new
+uuid = 'uuid_example' # String | ID of group from which to get principals
+
+begin
+  #Get a list of principals from a group in the tenant
+  result = api_instance.get_principals_from_group(uuid)
+  p result
+rescue RBACApiClient::ApiError => e
+  puts "Exception when calling GroupApi->get_principals_from_group: #{e}"
+end
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **uuid** | [**String**](.md)| ID of group from which to get principals | 
+
+### Return type
+
+[**PrincipalPagination**](PrincipalPagination.md)
+
+### Authorization
+
+[basic_auth](../README.md#basic_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+## list_groups
+
 > GroupPagination list_groups(opts)
 
 List the groups for a tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -401,6 +470,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
@@ -420,17 +490,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## list_roles_for_group
 
-# **list_roles_for_group**
-> GroupRolesOut list_roles_for_group(uuid)
+> GroupRolesPagination list_roles_for_group(uuid, opts)
 
 List the roles for a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -443,10 +514,17 @@ end
 
 api_instance = RBACApiClient::GroupApi.new
 uuid = 'uuid_example' # String | ID of group
+opts = {
+  exclude: false, # Boolean | If this is set to true, the result would be roles excluding the ones in the group
+  role_name: 'role_name_example', # String | Parameter for filtering group roles by role `name` using string contains search.
+  role_description: 'role_description_example', # String | Parameter for filtering group roles by role `description` using string contains search.
+  limit: 10, # Integer | Parameter for selecting the amount of data returned.
+  offset: 0 # Integer | Parameter for selecting the offset of data.
+}
 
 begin
   #List the roles for a group in the tenant
-  result = api_instance.list_roles_for_group(uuid)
+  result = api_instance.list_roles_for_group(uuid, opts)
   p result
 rescue RBACApiClient::ApiError => e
   puts "Exception when calling GroupApi->list_roles_for_group: #{e}"
@@ -455,13 +533,19 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group | 
+ **exclude** | **Boolean**| If this is set to true, the result would be roles excluding the ones in the group | [optional] [default to false]
+ **role_name** | **String**| Parameter for filtering group roles by role &#x60;name&#x60; using string contains search. | [optional] 
+ **role_description** | **String**| Parameter for filtering group roles by role &#x60;description&#x60; using string contains search. | [optional] 
+ **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
+ **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
 
 ### Return type
 
-[**GroupRolesOut**](GroupRolesOut.md)
+[**GroupRolesPagination**](GroupRolesPagination.md)
 
 ### Authorization
 
@@ -469,17 +553,18 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 
+## update_group
 
-# **update_group**
 > GroupOut update_group(uuid, group)
 
 Udate a group in the tenant
 
 ### Example
+
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -505,6 +590,7 @@ end
 
 ### Parameters
 
+
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group to update | 
@@ -520,8 +606,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json, */*
-
-
+- **Content-Type**: application/json
+- **Accept**: application/json, */*
 
