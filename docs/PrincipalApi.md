@@ -7,15 +7,12 @@ Method | HTTP request | Description
 [**list_principals**](PrincipalApi.md#list_principals) | **GET** /principals/ | List the principals for a tenant
 
 
-
-## list_principals
-
+# **list_principals**
 > PrincipalPagination list_principals(opts)
 
 List the principals for a tenant
 
 ### Example
-
 ```ruby
 # load the gem
 require 'rbac-api-client'
@@ -24,11 +21,6 @@ RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
   config.username = 'YOUR USERNAME'
   config.password = 'YOUR PASSWORD'
-
-  # Configure API key authorization: identity_auth
-  config.api_key['x-rh-identity'] = 'YOUR API KEY'
-  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
-  #config.api_key_prefix['x-rh-identity'] = 'Bearer'
 end
 
 api_instance = RBACApiClient::PrincipalApi.new
@@ -49,7 +41,6 @@ end
 
 ### Parameters
 
-
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
@@ -62,10 +53,12 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[basic_auth](../README.md#basic_auth), [identity_auth](../README.md#identity_auth)
+[basic_auth](../README.md#basic_auth)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
 
