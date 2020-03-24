@@ -38,6 +38,7 @@ describe 'PrincipalApi' do
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
   # @option opts [String] :usernames Usernames of principals to get
+  # @option opts [String] :sort_order The sort order of the query, either ascending or descending
   # @return [PrincipalPagination]
   describe 'list_principals test' do
     it 'should work' do

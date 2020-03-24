@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 ## get_principals_from_group
 
-> PrincipalPagination get_principals_from_group(uuid)
+> PrincipalPagination get_principals_from_group(uuid, opts)
 
 Get a list of principals from a group in the tenant
 
@@ -400,10 +400,13 @@ end
 
 api_instance = RBACApiClient::GroupApi.new
 uuid = 'uuid_example' # String | ID of group from which to get principals
+opts = {
+  principal_username: 'principal_username_example' # String | Parameter for filtering group principals by principal `username` using string contains search.
+}
 
 begin
   #Get a list of principals from a group in the tenant
-  result = api_instance.get_principals_from_group(uuid)
+  result = api_instance.get_principals_from_group(uuid, opts)
   p result
 rescue RBACApiClient::ApiError => e
   puts "Exception when calling GroupApi->get_principals_from_group: #{e}"
@@ -416,6 +419,7 @@ end
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group from which to get principals | 
+ **principal_username** | **String**| Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search. | [optional] 
 
 ### Return type
 
@@ -456,7 +460,10 @@ opts = {
   name: 'name_example', # String | Parameter for filtering resource by name using string contains search.
   scope: 'account', # String | Parameter for filtering resource by scope.
   username: 'username_example', # String | A username for a principal to filter for groups
-  order_by: 'order_by_example' # String | Parameter for ordering resource by value.
+  uuid: ['uuid_example'], # Array<String> | A list of UUIDs to filter listed groups.
+  role_names: ['role_names_example'], # Array<String> | List of role name to filter for groups. It is exact match but case-insensitive
+  role_discriminator: 'role_discriminator_example', # String | Discriminator that works with role_names to indicate matching all/any of the role names
+  order_by: 'order_by_example' # String | Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 }
 
 begin
@@ -478,7 +485,10 @@ Name | Type | Description  | Notes
  **name** | **String**| Parameter for filtering resource by name using string contains search. | [optional] 
  **scope** | **String**| Parameter for filtering resource by scope. | [optional] [default to &#39;account&#39;]
  **username** | **String**| A username for a principal to filter for groups | [optional] 
- **order_by** | **String**| Parameter for ordering resource by value. | [optional] 
+ **uuid** | [**Array&lt;String&gt;**](String.md)| A list of UUIDs to filter listed groups. | [optional] 
+ **role_names** | [**Array&lt;String&gt;**](String.md)| List of role name to filter for groups. It is exact match but case-insensitive | [optional] 
+ **role_discriminator** | **String**| Discriminator that works with role_names to indicate matching all/any of the role names | [optional] 
+ **order_by** | **String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | [optional] 
 
 ### Return type
 
@@ -519,7 +529,8 @@ opts = {
   role_name: 'role_name_example', # String | Parameter for filtering group roles by role `name` using string contains search.
   role_description: 'role_description_example', # String | Parameter for filtering group roles by role `description` using string contains search.
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
-  offset: 0 # Integer | Parameter for selecting the offset of data.
+  offset: 0, # Integer | Parameter for selecting the offset of data.
+  order_by: 'order_by_example' # String | Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 }
 
 begin
@@ -542,6 +553,7 @@ Name | Type | Description  | Notes
  **role_description** | **String**| Parameter for filtering group roles by role &#x60;description&#x60; using string contains search. | [optional] 
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
+ **order_by** | **String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | [optional] 
 
 ### Return type
 

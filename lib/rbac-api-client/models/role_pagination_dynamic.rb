@@ -13,12 +13,18 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module RBACApiClient
-  class InlineResponse2001
+  class RolePaginationDynamic
+    attr_accessor :meta
+
+    attr_accessor :links
+
     attr_accessor :data
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'meta' => :'meta',
+        :'links' => :'links',
         :'data' => :'data'
       }
     end
@@ -26,7 +32,9 @@ module RBACApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'data' => :'Array<AccessPagination>'
+        :'meta' => :'PaginationMeta',
+        :'links' => :'PaginationLinks',
+        :'data' => :'Array<RoleOutDynamic>'
       }
     end
 
@@ -36,20 +44,36 @@ module RBACApiClient
       ])
     end
 
+    # List of class defined in allOf (OpenAPI v3)
+    def self.openapi_all_of
+      [
+      :'ListPagination',
+      :'RolePaginationDynamicAllOf'
+      ]
+    end
+
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::InlineResponse2001` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::RolePaginationDynamic` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::InlineResponse2001`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::RolePaginationDynamic`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'meta')
+        self.meta = attributes[:'meta']
+      end
+
+      if attributes.key?(:'links')
+        self.links = attributes[:'links']
+      end
 
       if attributes.key?(:'data')
         if (value = attributes[:'data']).is_a?(Array)
@@ -81,6 +105,8 @@ module RBACApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          meta == o.meta &&
+          links == o.links &&
           data == o.data
     end
 
@@ -93,7 +119,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [data].hash
+      [meta, links, data].hash
     end
 
     # Builds the object from hash

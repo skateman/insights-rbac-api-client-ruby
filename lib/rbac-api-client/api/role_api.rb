@@ -206,7 +206,7 @@ module RBACApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
-    # @return [InlineResponse2001]
+    # @return [AccessPagination]
     def get_role_access(uuid, opts = {})
       data, _status_code, _headers = get_role_access_with_http_info(uuid, opts)
       data
@@ -217,7 +217,7 @@ module RBACApiClient
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
-    # @return [Array<(InlineResponse2001, Integer, Hash)>] InlineResponse2001 data, response status code and response headers
+    # @return [Array<(AccessPagination, Integer, Hash)>] AccessPagination data, response status code and response headers
     def get_role_access_with_http_info(uuid, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RoleApi.get_role_access ...'
@@ -258,7 +258,7 @@ module RBACApiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'InlineResponse2001' 
+      return_type = opts[:return_type] || 'AccessPagination' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['basic_auth']
@@ -285,8 +285,10 @@ module RBACApiClient
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
     # @option opts [String] :scope Parameter for filtering resource by scope. (default to 'account')
-    # @option opts [String] :order_by Parameter for ordering resource by value.
-    # @return [RolePagination]
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
+    # @option opts [Array<String>] :add_fields Parameter for add list of fields to display for roles.
+    # @option opts [String] :username Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header).
+    # @return [RolePaginationDynamic]
     def list_roles(opts = {})
       data, _status_code, _headers = list_roles_with_http_info(opts)
       data
@@ -298,8 +300,10 @@ module RBACApiClient
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
     # @option opts [String] :scope Parameter for filtering resource by scope.
-    # @option opts [String] :order_by Parameter for ordering resource by value.
-    # @return [Array<(RolePagination, Integer, Hash)>] RolePagination data, response status code and response headers
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
+    # @option opts [Array<String>] :add_fields Parameter for add list of fields to display for roles.
+    # @option opts [String] :username Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header).
+    # @return [Array<(RolePaginationDynamic, Integer, Hash)>] RolePaginationDynamic data, response status code and response headers
     def list_roles_with_http_info(opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: RoleApi.list_roles ...'
@@ -320,6 +324,10 @@ module RBACApiClient
       if @api_client.config.client_side_validation && opts[:'scope'] && !allowable_values.include?(opts[:'scope'])
         fail ArgumentError, "invalid value for \"scope\", must be one of #{allowable_values}"
       end
+      allowable_values = ["groups_in", "groups_in_count"]
+      if @api_client.config.client_side_validation && opts[:'add_fields'] && !opts[:'add_fields'].all? { |item| allowable_values.include?(item) }
+        fail ArgumentError, "invalid value for \"add_fields\", must include one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/roles/'
 
@@ -330,6 +338,8 @@ module RBACApiClient
       query_params[:'name'] = opts[:'name'] if !opts[:'name'].nil?
       query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
       query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
+      query_params[:'add_fields'] = @api_client.build_collection_param(opts[:'add_fields'], :csv) if !opts[:'add_fields'].nil?
+      query_params[:'username'] = opts[:'username'] if !opts[:'username'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -343,7 +353,7 @@ module RBACApiClient
       post_body = opts[:body] 
 
       # return_type
-      return_type = opts[:return_type] || 'RolePagination' 
+      return_type = opts[:return_type] || 'RolePaginationDynamic' 
 
       # auth_names
       auth_names = opts[:auth_names] || ['basic_auth']

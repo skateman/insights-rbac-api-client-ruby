@@ -22,13 +22,16 @@ module RBACApiClient
 
     attr_accessor :last_name
 
+    attr_accessor :is_active
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'username' => :'username',
         :'email' => :'email',
         :'first_name' => :'first_name',
-        :'last_name' => :'last_name'
+        :'last_name' => :'last_name',
+        :'is_active' => :'is_active'
       }
     end
 
@@ -38,7 +41,8 @@ module RBACApiClient
         :'username' => :'String',
         :'email' => :'String',
         :'first_name' => :'String',
-        :'last_name' => :'String'
+        :'last_name' => :'String',
+        :'is_active' => :'Boolean'
       }
     end
 
@@ -78,6 +82,10 @@ module RBACApiClient
       if attributes.key?(:'last_name')
         self.last_name = attributes[:'last_name']
       end
+
+      if attributes.key?(:'is_active')
+        self.is_active = attributes[:'is_active']
+      end
     end
 
     # Show invalid properties with the reasons. Usually used together with valid?
@@ -111,7 +119,8 @@ module RBACApiClient
           username == o.username &&
           email == o.email &&
           first_name == o.first_name &&
-          last_name == o.last_name
+          last_name == o.last_name &&
+          is_active == o.is_active
     end
 
     # @see the `==` method
@@ -123,7 +132,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [username, email, first_name, last_name].hash
+      [username, email, first_name, last_name, is_active].hash
     end
 
     # Builds the object from hash

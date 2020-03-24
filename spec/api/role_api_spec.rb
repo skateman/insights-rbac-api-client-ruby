@@ -71,7 +71,7 @@ describe 'RoleApi' do
   # @param [Hash] opts the optional parameters
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
-  # @return [InlineResponse2001]
+  # @return [AccessPagination]
   describe 'get_role_access test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
@@ -85,8 +85,10 @@ describe 'RoleApi' do
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
   # @option opts [String] :name Parameter for filtering resource by name using string contains search.
   # @option opts [String] :scope Parameter for filtering resource by scope.
-  # @option opts [String] :order_by Parameter for ordering resource by value.
-  # @return [RolePagination]
+  # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
+  # @option opts [Array<String>] :add_fields Parameter for add list of fields to display for roles.
+  # @option opts [String] :username Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header).
+  # @return [RolePaginationDynamic]
   describe 'list_roles test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
