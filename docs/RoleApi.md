@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## get_role_access
 
-> InlineResponse2001 get_role_access(uuid, opts)
+> AccessPagination get_role_access(uuid, opts)
 
 Get access for a role in the tenant
 
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**AccessPagination**](AccessPagination.md)
 
 ### Authorization
 
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 
 ## list_roles
 
-> RolePagination list_roles(opts)
+> RolePaginationDynamic list_roles(opts)
 
 List the roles for a tenant
 
@@ -246,7 +246,9 @@ opts = {
   offset: 0, # Integer | Parameter for selecting the offset of data.
   name: 'name_example', # String | Parameter for filtering resource by name using string contains search.
   scope: 'account', # String | Parameter for filtering resource by scope.
-  order_by: 'order_by_example' # String | Parameter for ordering resource by value.
+  order_by: 'order_by_example', # String | Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
+  add_fields: ['add_fields_example'], # Array<String> | Parameter for add list of fields to display for roles.
+  username: 'username_example' # String | Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header).
 }
 
 begin
@@ -267,11 +269,13 @@ Name | Type | Description  | Notes
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
  **name** | **String**| Parameter for filtering resource by name using string contains search. | [optional] 
  **scope** | **String**| Parameter for filtering resource by scope. | [optional] [default to &#39;account&#39;]
- **order_by** | **String**| Parameter for ordering resource by value. | [optional] 
+ **order_by** | **String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | [optional] 
+ **add_fields** | [**Array&lt;String&gt;**](String.md)| Parameter for add list of fields to display for roles. | [optional] 
+ **username** | **String**| Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header). | [optional] 
 
 ### Return type
 
-[**RolePagination**](RolePagination.md)
+[**RolePaginationDynamic**](RolePaginationDynamic.md)
 
 ### Authorization
 

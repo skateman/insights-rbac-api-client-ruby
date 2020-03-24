@@ -190,7 +190,7 @@ opts = {
   scope: 'account', # String | Parameter for filtering resource by scope.
   group_name: 'group_name_example', # String | Parameter for filtering resource by group name using string contains search.
   group_uuid: 'group_uuid_example', # String | Parameter for filtering resource by group uuid using UUID exact match.
-  order_by: 'order_by_example' # String | Parameter for ordering resource by value.
+  order_by: 'order_by_example' # String | Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name
 }
 
 begin
@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
  **scope** | **String**| Parameter for filtering resource by scope. | [optional] [default to &#39;account&#39;]
  **group_name** | **String**| Parameter for filtering resource by group name using string contains search. | [optional] 
  **group_uuid** | [**String**](.md)| Parameter for filtering resource by group uuid using UUID exact match. | [optional] 
- **order_by** | **String**| Parameter for ordering resource by value. | [optional] 
+ **order_by** | **String**| Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name | [optional] 
 
 ### Return type
 

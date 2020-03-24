@@ -30,7 +30,8 @@ api_instance = RBACApiClient::PrincipalApi.new
 opts = {
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
   offset: 0, # Integer | Parameter for selecting the offset of data.
-  usernames: 'usernames_example' # String | Usernames of principals to get
+  usernames: 'usernames_example', # String | Usernames of principals to get
+  sort_order: 'sort_order_example' # String | The sort order of the query, either ascending or descending
 }
 
 begin
@@ -50,6 +51,7 @@ Name | Type | Description  | Notes
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
  **usernames** | **String**| Usernames of principals to get | [optional] 
+ **sort_order** | **String**| The sort order of the query, either ascending or descending | [optional] 
 
 ### Return type
 

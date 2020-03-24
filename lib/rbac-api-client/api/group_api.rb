@@ -474,6 +474,7 @@ module RBACApiClient
     # Get a list of principals from a group in the tenant
     # @param uuid [String] ID of group from which to get principals
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
     # @return [PrincipalPagination]
     def get_principals_from_group(uuid, opts = {})
       data, _status_code, _headers = get_principals_from_group_with_http_info(uuid, opts)
@@ -483,6 +484,7 @@ module RBACApiClient
     # Get a list of principals from a group in the tenant
     # @param uuid [String] ID of group from which to get principals
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
     # @return [Array<(PrincipalPagination, Integer, Hash)>] PrincipalPagination data, response status code and response headers
     def get_principals_from_group_with_http_info(uuid, opts = {})
       if @api_client.config.debugging
@@ -497,6 +499,7 @@ module RBACApiClient
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'principal_username'] = opts[:'principal_username'] if !opts[:'principal_username'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -538,7 +541,10 @@ module RBACApiClient
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
     # @option opts [String] :scope Parameter for filtering resource by scope. (default to 'account')
     # @option opts [String] :username A username for a principal to filter for groups
-    # @option opts [String] :order_by Parameter for ordering resource by value.
+    # @option opts [Array<String>] :uuid A list of UUIDs to filter listed groups.
+    # @option opts [Array<String>] :role_names List of role name to filter for groups. It is exact match but case-insensitive
+    # @option opts [String] :role_discriminator Discriminator that works with role_names to indicate matching all/any of the role names
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
     # @return [GroupPagination]
     def list_groups(opts = {})
       data, _status_code, _headers = list_groups_with_http_info(opts)
@@ -552,7 +558,10 @@ module RBACApiClient
     # @option opts [String] :name Parameter for filtering resource by name using string contains search.
     # @option opts [String] :scope Parameter for filtering resource by scope.
     # @option opts [String] :username A username for a principal to filter for groups
-    # @option opts [String] :order_by Parameter for ordering resource by value.
+    # @option opts [Array<String>] :uuid A list of UUIDs to filter listed groups.
+    # @option opts [Array<String>] :role_names List of role name to filter for groups. It is exact match but case-insensitive
+    # @option opts [String] :role_discriminator Discriminator that works with role_names to indicate matching all/any of the role names
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
     # @return [Array<(GroupPagination, Integer, Hash)>] GroupPagination data, response status code and response headers
     def list_groups_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -574,6 +583,10 @@ module RBACApiClient
       if @api_client.config.client_side_validation && opts[:'scope'] && !allowable_values.include?(opts[:'scope'])
         fail ArgumentError, "invalid value for \"scope\", must be one of #{allowable_values}"
       end
+      allowable_values = ["all", "any"]
+      if @api_client.config.client_side_validation && opts[:'role_discriminator'] && !allowable_values.include?(opts[:'role_discriminator'])
+        fail ArgumentError, "invalid value for \"role_discriminator\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/groups/'
 
@@ -584,6 +597,9 @@ module RBACApiClient
       query_params[:'name'] = opts[:'name'] if !opts[:'name'].nil?
       query_params[:'scope'] = opts[:'scope'] if !opts[:'scope'].nil?
       query_params[:'username'] = opts[:'username'] if !opts[:'username'].nil?
+      query_params[:'uuid'] = @api_client.build_collection_param(opts[:'uuid'], :csv) if !opts[:'uuid'].nil?
+      query_params[:'role_names'] = @api_client.build_collection_param(opts[:'role_names'], :csv) if !opts[:'role_names'].nil?
+      query_params[:'role_discriminator'] = opts[:'role_discriminator'] if !opts[:'role_discriminator'].nil?
       query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
 
       # header parameters
@@ -627,6 +643,7 @@ module RBACApiClient
     # @option opts [String] :role_description Parameter for filtering group roles by role &#x60;description&#x60; using string contains search.
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
     # @return [GroupRolesPagination]
     def list_roles_for_group(uuid, opts = {})
       data, _status_code, _headers = list_roles_for_group_with_http_info(uuid, opts)
@@ -641,6 +658,7 @@ module RBACApiClient
     # @option opts [String] :role_description Parameter for filtering group roles by role &#x60;description&#x60; using string contains search.
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
+    # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
     # @return [Array<(GroupRolesPagination, Integer, Hash)>] GroupRolesPagination data, response status code and response headers
     def list_roles_for_group_with_http_info(uuid, opts = {})
       if @api_client.config.debugging
@@ -662,6 +680,10 @@ module RBACApiClient
         fail ArgumentError, 'invalid value for "opts[:"offset"]" when calling GroupApi.list_roles_for_group, must be greater than or equal to 0.'
       end
 
+      allowable_values = ["name", "modified", "policyCount"]
+      if @api_client.config.client_side_validation && opts[:'order_by'] && !allowable_values.include?(opts[:'order_by'])
+        fail ArgumentError, "invalid value for \"order_by\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/groups/{uuid}/roles/'.sub('{' + 'uuid' + '}', CGI.escape(uuid.to_s))
 
@@ -672,6 +694,7 @@ module RBACApiClient
       query_params[:'role_description'] = opts[:'role_description'] if !opts[:'role_description'].nil?
       query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
       query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
+      query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

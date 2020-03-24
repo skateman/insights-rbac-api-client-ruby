@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **email** | **String** |  | 
 **first_name** | **String** |  | [optional] 
 **last_name** | **String** |  | [optional] 
+**is_active** | **Boolean** |  | [optional] 
 
 ## Code Sample
 
@@ -17,7 +18,8 @@ require 'RBACApiClient'
 instance = RBACApiClient::Principal.new(username: smithj,
                                  email: smithj@mytechco.com,
                                  first_name: John,
-                                 last_name: Smith)
+                                 last_name: Smith,
+                                 is_active: null)
 ```
 
 

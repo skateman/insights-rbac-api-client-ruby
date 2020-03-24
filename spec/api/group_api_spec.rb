@@ -117,6 +117,7 @@ describe 'GroupApi' do
   # Get a list of principals from a group in the tenant
   # @param uuid ID of group from which to get principals
   # @param [Hash] opts the optional parameters
+  # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
   # @return [PrincipalPagination]
   describe 'get_principals_from_group test' do
     it 'should work' do
@@ -132,7 +133,10 @@ describe 'GroupApi' do
   # @option opts [String] :name Parameter for filtering resource by name using string contains search.
   # @option opts [String] :scope Parameter for filtering resource by scope.
   # @option opts [String] :username A username for a principal to filter for groups
-  # @option opts [String] :order_by Parameter for ordering resource by value.
+  # @option opts [Array<String>] :uuid A list of UUIDs to filter listed groups.
+  # @option opts [Array<String>] :role_names List of role name to filter for groups. It is exact match but case-insensitive
+  # @option opts [String] :role_discriminator Discriminator that works with role_names to indicate matching all/any of the role names
+  # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
   # @return [GroupPagination]
   describe 'list_groups test' do
     it 'should work' do
@@ -149,6 +153,7 @@ describe 'GroupApi' do
   # @option opts [String] :role_description Parameter for filtering group roles by role &#x60;description&#x60; using string contains search.
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
+  # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
   # @return [GroupRolesPagination]
   describe 'list_roles_for_group test' do
     it 'should work' do

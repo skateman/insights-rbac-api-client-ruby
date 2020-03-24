@@ -13,27 +13,15 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module RBACApiClient
-  class PrincipalOut
-    attr_accessor :username
-
-    attr_accessor :email
-
-    attr_accessor :first_name
-
-    attr_accessor :last_name
-
-    attr_accessor :is_active
+  class AdditionalGroup
+    attr_accessor :name
 
     attr_accessor :uuid
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'username' => :'username',
-        :'email' => :'email',
-        :'first_name' => :'first_name',
-        :'last_name' => :'last_name',
-        :'is_active' => :'is_active',
+        :'name' => :'name',
         :'uuid' => :'uuid'
       }
     end
@@ -41,11 +29,7 @@ module RBACApiClient
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'username' => :'String',
-        :'email' => :'String',
-        :'first_name' => :'String',
-        :'last_name' => :'String',
-        :'is_active' => :'Boolean',
+        :'name' => :'String',
         :'uuid' => :'String'
       }
     end
@@ -56,47 +40,23 @@ module RBACApiClient
       ])
     end
 
-    # List of class defined in allOf (OpenAPI v3)
-    def self.openapi_all_of
-      [
-      :'Principal',
-      :'UUID'
-      ]
-    end
-
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::PrincipalOut` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::AdditionalGroup` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::PrincipalOut`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::AdditionalGroup`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'username')
-        self.username = attributes[:'username']
-      end
-
-      if attributes.key?(:'email')
-        self.email = attributes[:'email']
-      end
-
-      if attributes.key?(:'first_name')
-        self.first_name = attributes[:'first_name']
-      end
-
-      if attributes.key?(:'last_name')
-        self.last_name = attributes[:'last_name']
-      end
-
-      if attributes.key?(:'is_active')
-        self.is_active = attributes[:'is_active']
+      if attributes.key?(:'name')
+        self.name = attributes[:'name']
       end
 
       if attributes.key?(:'uuid')
@@ -108,27 +68,12 @@ module RBACApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @username.nil?
-        invalid_properties.push('invalid value for "username", username cannot be nil.')
-      end
-
-      if @email.nil?
-        invalid_properties.push('invalid value for "email", email cannot be nil.')
-      end
-
-      if @uuid.nil?
-        invalid_properties.push('invalid value for "uuid", uuid cannot be nil.')
-      end
-
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @username.nil?
-      return false if @email.nil?
-      return false if @uuid.nil?
       true
     end
 
@@ -137,11 +82,7 @@ module RBACApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          username == o.username &&
-          email == o.email &&
-          first_name == o.first_name &&
-          last_name == o.last_name &&
-          is_active == o.is_active &&
+          name == o.name &&
           uuid == o.uuid
     end
 
@@ -154,7 +95,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [username, email, first_name, last_name, is_active, uuid].hash
+      [name, uuid].hash
     end
 
     # Builds the object from hash

@@ -74,7 +74,7 @@ describe 'PolicyApi' do
   # @option opts [String] :scope Parameter for filtering resource by scope.
   # @option opts [String] :group_name Parameter for filtering resource by group name using string contains search.
   # @option opts [String] :group_uuid Parameter for filtering resource by group uuid using UUID exact match.
-  # @option opts [String] :order_by Parameter for ordering resource by value.
+  # @option opts [String] :order_by Parameter for ordering resource by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-name
   # @return [PolicyPagination]
   describe 'list_policies test' do
     it 'should work' do

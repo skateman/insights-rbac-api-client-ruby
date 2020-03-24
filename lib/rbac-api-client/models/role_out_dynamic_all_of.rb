@@ -13,40 +13,44 @@ OpenAPI Generator version: 4.2.2
 require 'date'
 
 module RBACApiClient
-  class PrincipalOut
-    attr_accessor :username
+  class RoleOutDynamicAllOf
+    attr_accessor :policy_count
 
-    attr_accessor :email
+    attr_accessor :access_count
 
-    attr_accessor :first_name
+    attr_accessor :applications
 
-    attr_accessor :last_name
+    attr_accessor :system
 
-    attr_accessor :is_active
+    attr_accessor :platform_default
 
-    attr_accessor :uuid
+    attr_accessor :groups_in_count
+
+    attr_accessor :groups_in
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'username' => :'username',
-        :'email' => :'email',
-        :'first_name' => :'first_name',
-        :'last_name' => :'last_name',
-        :'is_active' => :'is_active',
-        :'uuid' => :'uuid'
+        :'policy_count' => :'policyCount',
+        :'access_count' => :'accessCount',
+        :'applications' => :'applications',
+        :'system' => :'system',
+        :'platform_default' => :'platform_default',
+        :'groups_in_count' => :'groups_in_count',
+        :'groups_in' => :'groups_in'
       }
     end
 
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'username' => :'String',
-        :'email' => :'String',
-        :'first_name' => :'String',
-        :'last_name' => :'String',
-        :'is_active' => :'Boolean',
-        :'uuid' => :'String'
+        :'policy_count' => :'Integer',
+        :'access_count' => :'Integer',
+        :'applications' => :'Array<String>',
+        :'system' => :'Boolean',
+        :'platform_default' => :'Boolean',
+        :'groups_in_count' => :'Integer',
+        :'groups_in' => :'Array<AdditionalGroup>'
       }
     end
 
@@ -56,51 +60,55 @@ module RBACApiClient
       ])
     end
 
-    # List of class defined in allOf (OpenAPI v3)
-    def self.openapi_all_of
-      [
-      :'Principal',
-      :'UUID'
-      ]
-    end
-
     # Initializes the object
     # @param [Hash] attributes Model attributes in the form of hash
     def initialize(attributes = {})
       if (!attributes.is_a?(Hash))
-        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::PrincipalOut` initialize method"
+        fail ArgumentError, "The input argument (attributes) must be a hash in `RBACApiClient::RoleOutDynamicAllOf` initialize method"
       end
 
       # check to see if the attribute exists and convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h|
         if (!self.class.attribute_map.key?(k.to_sym))
-          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::PrincipalOut`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
+          fail ArgumentError, "`#{k}` is not a valid attribute in `RBACApiClient::RoleOutDynamicAllOf`. Please check the name to make sure it's valid. List of attributes: " + self.class.attribute_map.keys.inspect
         end
         h[k.to_sym] = v
       }
 
-      if attributes.key?(:'username')
-        self.username = attributes[:'username']
+      if attributes.key?(:'policy_count')
+        self.policy_count = attributes[:'policy_count']
       end
 
-      if attributes.key?(:'email')
-        self.email = attributes[:'email']
+      if attributes.key?(:'access_count')
+        self.access_count = attributes[:'access_count']
       end
 
-      if attributes.key?(:'first_name')
-        self.first_name = attributes[:'first_name']
+      if attributes.key?(:'applications')
+        if (value = attributes[:'applications']).is_a?(Array)
+          self.applications = value
+        end
       end
 
-      if attributes.key?(:'last_name')
-        self.last_name = attributes[:'last_name']
+      if attributes.key?(:'system')
+        self.system = attributes[:'system']
+      else
+        self.system = false
       end
 
-      if attributes.key?(:'is_active')
-        self.is_active = attributes[:'is_active']
+      if attributes.key?(:'platform_default')
+        self.platform_default = attributes[:'platform_default']
+      else
+        self.platform_default = false
       end
 
-      if attributes.key?(:'uuid')
-        self.uuid = attributes[:'uuid']
+      if attributes.key?(:'groups_in_count')
+        self.groups_in_count = attributes[:'groups_in_count']
+      end
+
+      if attributes.key?(:'groups_in')
+        if (value = attributes[:'groups_in']).is_a?(Array)
+          self.groups_in = value
+        end
       end
     end
 
@@ -108,16 +116,36 @@ module RBACApiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @username.nil?
-        invalid_properties.push('invalid value for "username", username cannot be nil.')
+      if @policy_count.nil?
+        invalid_properties.push('invalid value for "policy_count", policy_count cannot be nil.')
       end
 
-      if @email.nil?
-        invalid_properties.push('invalid value for "email", email cannot be nil.')
+      if @policy_count < 0
+        invalid_properties.push('invalid value for "policy_count", must be greater than or equal to 0.')
       end
 
-      if @uuid.nil?
-        invalid_properties.push('invalid value for "uuid", uuid cannot be nil.')
+      if @access_count.nil?
+        invalid_properties.push('invalid value for "access_count", access_count cannot be nil.')
+      end
+
+      if @access_count < 0
+        invalid_properties.push('invalid value for "access_count", must be greater than or equal to 0.')
+      end
+
+      if @applications.nil?
+        invalid_properties.push('invalid value for "applications", applications cannot be nil.')
+      end
+
+      if @system.nil?
+        invalid_properties.push('invalid value for "system", system cannot be nil.')
+      end
+
+      if @platform_default.nil?
+        invalid_properties.push('invalid value for "platform_default", platform_default cannot be nil.')
+      end
+
+      if !@groups_in_count.nil? && @groups_in_count < 0
+        invalid_properties.push('invalid value for "groups_in_count", must be greater than or equal to 0.')
       end
 
       invalid_properties
@@ -126,10 +154,53 @@ module RBACApiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @username.nil?
-      return false if @email.nil?
-      return false if @uuid.nil?
+      return false if @policy_count.nil?
+      return false if @policy_count < 0
+      return false if @access_count.nil?
+      return false if @access_count < 0
+      return false if @applications.nil?
+      return false if @system.nil?
+      return false if @platform_default.nil?
+      return false if !@groups_in_count.nil? && @groups_in_count < 0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] policy_count Value to be assigned
+    def policy_count=(policy_count)
+      if policy_count.nil?
+        fail ArgumentError, 'policy_count cannot be nil'
+      end
+
+      if policy_count < 0
+        fail ArgumentError, 'invalid value for "policy_count", must be greater than or equal to 0.'
+      end
+
+      @policy_count = policy_count
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] access_count Value to be assigned
+    def access_count=(access_count)
+      if access_count.nil?
+        fail ArgumentError, 'access_count cannot be nil'
+      end
+
+      if access_count < 0
+        fail ArgumentError, 'invalid value for "access_count", must be greater than or equal to 0.'
+      end
+
+      @access_count = access_count
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] groups_in_count Value to be assigned
+    def groups_in_count=(groups_in_count)
+      if !groups_in_count.nil? && groups_in_count < 0
+        fail ArgumentError, 'invalid value for "groups_in_count", must be greater than or equal to 0.'
+      end
+
+      @groups_in_count = groups_in_count
     end
 
     # Checks equality by comparing each attribute.
@@ -137,12 +208,13 @@ module RBACApiClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          username == o.username &&
-          email == o.email &&
-          first_name == o.first_name &&
-          last_name == o.last_name &&
-          is_active == o.is_active &&
-          uuid == o.uuid
+          policy_count == o.policy_count &&
+          access_count == o.access_count &&
+          applications == o.applications &&
+          system == o.system &&
+          platform_default == o.platform_default &&
+          groups_in_count == o.groups_in_count &&
+          groups_in == o.groups_in
     end
 
     # @see the `==` method
@@ -154,7 +226,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [username, email, first_name, last_name, is_active, uuid].hash
+      [policy_count, access_count, applications, system, platform_default, groups_in_count, groups_in].hash
     end
 
     # Builds the object from hash
