@@ -1,0 +1,43 @@
+name: Push Approval API Client RubyGem and create a Release
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build + Publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Read the client-meta.json
+      id: version_file
+      run: |
+        echo ::set-output name=data::$(cat client-meta.json)
+    - name: Echo the gem version
+      run: |
+        echo "v${{ fromJson(steps.version_file.outputs.data).gemVersion }}"   
+          
+    - name: Publish to RubyGems
+      run: |
+        mkdir -p $HOME/.gem
+        touch $HOME/.gem/credentials
+        chmod 0600 $HOME/.gem/credentials
+        printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+        gem build *.gemspec
+        gem push *.gem
+      env:
+        GEM_HOST_API_KEY: ${{secrets.RUBYGEMS_AUTH_TOKEN}}
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: "v${{ fromJson(steps.version_file.outputs.data).gemVersion }}"
+        release_name: "v${{ fromJson(steps.version_file.outputs.data).gemVersion }}" 
