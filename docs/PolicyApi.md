@@ -22,7 +22,7 @@ Create a policy in a tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -73,7 +73,7 @@ Delete a policy in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -123,7 +123,7 @@ Get a policy in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -170,11 +170,13 @@ Name | Type | Description  | Notes
 
 List the policies in the tenant
 
+By default, responses are sorted in ascending order by policy name
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -239,7 +241,7 @@ Update a policy in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth

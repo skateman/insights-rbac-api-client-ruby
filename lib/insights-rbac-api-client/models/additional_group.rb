@@ -16,12 +16,15 @@ module RBACApiClient
   class AdditionalGroup
     attr_accessor :name
 
+    attr_accessor :description
+
     attr_accessor :uuid
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'name' => :'name',
+        :'description' => :'description',
         :'uuid' => :'uuid'
       }
     end
@@ -30,6 +33,7 @@ module RBACApiClient
     def self.openapi_types
       {
         :'name' => :'String',
+        :'description' => :'String',
         :'uuid' => :'String'
       }
     end
@@ -59,6 +63,10 @@ module RBACApiClient
         self.name = attributes[:'name']
       end
 
+      if attributes.key?(:'description')
+        self.description = attributes[:'description']
+      end
+
       if attributes.key?(:'uuid')
         self.uuid = attributes[:'uuid']
       end
@@ -83,6 +91,7 @@ module RBACApiClient
       return true if self.equal?(o)
       self.class == o.class &&
           name == o.name &&
+          description == o.description &&
           uuid == o.uuid
     end
 
@@ -95,7 +104,7 @@ module RBACApiClient
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [name, uuid].hash
+      [name, description, uuid].hash
     end
 
     # Builds the object from hash

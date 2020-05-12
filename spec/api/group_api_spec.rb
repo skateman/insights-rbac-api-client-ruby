@@ -115,9 +115,13 @@ describe 'GroupApi' do
 
   # unit tests for get_principals_from_group
   # Get a list of principals from a group in the tenant
+  # By default, responses are sorted in ascending order by username
   # @param uuid ID of group from which to get principals
   # @param [Hash] opts the optional parameters
   # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
+  # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
+  # @option opts [Integer] :offset Parameter for selecting the offset of data.
+  # @option opts [String] :order_by Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username
   # @return [PrincipalPagination]
   describe 'get_principals_from_group test' do
     it 'should work' do
@@ -127,6 +131,7 @@ describe 'GroupApi' do
 
   # unit tests for list_groups
   # List the groups for a tenant
+  # By default, responses are sorted in ascending order by group name
   # @param [Hash] opts the optional parameters
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
@@ -146,6 +151,7 @@ describe 'GroupApi' do
 
   # unit tests for list_roles_for_group
   # List the roles for a group in the tenant
+  # By default, responses are sorted in ascending order by role name
   # @param uuid ID of group
   # @param [Hash] opts the optional parameters
   # @option opts [Boolean] :exclude If this is set to true, the result would be roles excluding the ones in the group

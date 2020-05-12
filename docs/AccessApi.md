@@ -14,11 +14,13 @@ Method | HTTP request | Description
 
 Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
 
+Access responses are sorted in ascending order by an ID internal to the database
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -27,7 +29,7 @@ RBACApiClient.configure do |config|
 end
 
 api_instance = RBACApiClient::AccessApi.new
-application = 'application_example' # String | The application name to obtain access for the principal
+application = 'application_example' # String | The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.
 opts = {
   username: 'username_example', # String | Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
@@ -48,7 +50,7 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application** | **String**| The application name to obtain access for the principal | 
+ **application** | **String**| The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications. | 
  **username** | **String**| Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header). | [optional] 
  **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]

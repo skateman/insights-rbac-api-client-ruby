@@ -28,7 +28,7 @@ Add a principal to a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -81,7 +81,7 @@ Add a role to a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -134,7 +134,7 @@ Create a group in a tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -185,7 +185,7 @@ Delete a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -235,7 +235,7 @@ Remove a principal from a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -287,7 +287,7 @@ Remove a role from a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -339,7 +339,7 @@ Get a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -386,11 +386,13 @@ Name | Type | Description  | Notes
 
 Get a list of principals from a group in the tenant
 
+By default, responses are sorted in ascending order by username
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -401,7 +403,10 @@ end
 api_instance = RBACApiClient::GroupApi.new
 uuid = 'uuid_example' # String | ID of group from which to get principals
 opts = {
-  principal_username: 'principal_username_example' # String | Parameter for filtering group principals by principal `username` using string contains search.
+  principal_username: 'principal_username_example', # String | Parameter for filtering group principals by principal `username` using string contains search.
+  limit: 10, # Integer | Parameter for selecting the amount of data returned.
+  offset: 0, # Integer | Parameter for selecting the offset of data.
+  order_by: 'order_by_example' # String | Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username
 }
 
 begin
@@ -420,6 +425,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uuid** | [**String**](.md)| ID of group from which to get principals | 
  **principal_username** | **String**| Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search. | [optional] 
+ **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
+ **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
+ **order_by** | **String**| Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username | [optional] 
 
 ### Return type
 
@@ -441,11 +449,13 @@ Name | Type | Description  | Notes
 
 List the groups for a tenant
 
+By default, responses are sorted in ascending order by group name
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -510,11 +520,13 @@ Name | Type | Description  | Notes
 
 List the roles for a group in the tenant
 
+By default, responses are sorted in ascending order by role name
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -579,7 +591,7 @@ Udate a group in the tenant
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth

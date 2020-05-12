@@ -34,11 +34,13 @@ describe 'PrincipalApi' do
 
   # unit tests for list_principals
   # List the principals for a tenant
+  # By default, responses are sorted in ascending order by username
   # @param [Hash] opts the optional parameters
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.
   # @option opts [String] :usernames Usernames of principals to get
   # @option opts [String] :sort_order The sort order of the query, either ascending or descending
+  # @option opts [String] :email Exact e-mail address of principal to search for
   # @return [PrincipalPagination]
   describe 'list_principals test' do
     it 'should work' do

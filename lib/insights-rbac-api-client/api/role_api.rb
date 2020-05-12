@@ -280,6 +280,7 @@ module RBACApiClient
     end
 
     # List the roles for a tenant
+    # By default, responses are sorted in ascending order by role name
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
@@ -295,6 +296,7 @@ module RBACApiClient
     end
 
     # List the roles for a tenant
+    # By default, responses are sorted in ascending order by role name
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.

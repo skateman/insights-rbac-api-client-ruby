@@ -80,6 +80,7 @@ describe 'RoleApi' do
 
   # unit tests for list_roles
   # List the roles for a tenant
+  # By default, responses are sorted in ascending order by role name
   # @param [Hash] opts the optional parameters
   # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
   # @option opts [Integer] :offset Parameter for selecting the offset of data.

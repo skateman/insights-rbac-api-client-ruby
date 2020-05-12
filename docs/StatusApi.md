@@ -18,7 +18,7 @@ Obtain server status
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth

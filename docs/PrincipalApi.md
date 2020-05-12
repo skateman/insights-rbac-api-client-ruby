@@ -14,11 +14,13 @@ Method | HTTP request | Description
 
 List the principals for a tenant
 
+By default, responses are sorted in ascending order by username
+
 ### Example
 
 ```ruby
 # load the gem
-require 'rbac-api-client'
+require 'insights-rbac-api-client'
 # setup authorization
 RBACApiClient.configure do |config|
   # Configure HTTP basic authorization: basic_auth
@@ -31,7 +33,8 @@ opts = {
   limit: 10, # Integer | Parameter for selecting the amount of data returned.
   offset: 0, # Integer | Parameter for selecting the offset of data.
   usernames: 'usernames_example', # String | Usernames of principals to get
-  sort_order: 'sort_order_example' # String | The sort order of the query, either ascending or descending
+  sort_order: 'sort_order_example', # String | The sort order of the query, either ascending or descending
+  email: 'email_example' # String | Exact e-mail address of principal to search for
 }
 
 begin
@@ -52,6 +55,7 @@ Name | Type | Description  | Notes
  **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
  **usernames** | **String**| Usernames of principals to get | [optional] 
  **sort_order** | **String**| The sort order of the query, either ascending or descending | [optional] 
+ **email** | **String**| Exact e-mail address of principal to search for | [optional] 
 
 ### Return type
 
