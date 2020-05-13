@@ -472,9 +472,13 @@ module RBACApiClient
     end
 
     # Get a list of principals from a group in the tenant
+    # By default, responses are sorted in ascending order by username
     # @param uuid [String] ID of group from which to get principals
     # @param [Hash] opts the optional parameters
     # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
+    # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
+    # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
+    # @option opts [String] :order_by Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username
     # @return [PrincipalPagination]
     def get_principals_from_group(uuid, opts = {})
       data, _status_code, _headers = get_principals_from_group_with_http_info(uuid, opts)
@@ -482,9 +486,13 @@ module RBACApiClient
     end
 
     # Get a list of principals from a group in the tenant
+    # By default, responses are sorted in ascending order by username
     # @param uuid [String] ID of group from which to get principals
     # @param [Hash] opts the optional parameters
     # @option opts [String] :principal_username Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search.
+    # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
+    # @option opts [Integer] :offset Parameter for selecting the offset of data.
+    # @option opts [String] :order_by Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username
     # @return [Array<(PrincipalPagination, Integer, Hash)>] PrincipalPagination data, response status code and response headers
     def get_principals_from_group_with_http_info(uuid, opts = {})
       if @api_client.config.debugging
@@ -494,12 +502,31 @@ module RBACApiClient
       if @api_client.config.client_side_validation && uuid.nil?
         fail ArgumentError, "Missing the required parameter 'uuid' when calling GroupApi.get_principals_from_group"
       end
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] > 1000
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling GroupApi.get_principals_from_group, must be smaller than or equal to 1000.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'limit'].nil? && opts[:'limit'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"limit"]" when calling GroupApi.get_principals_from_group, must be greater than or equal to 1.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'offset'].nil? && opts[:'offset'] < 0
+        fail ArgumentError, 'invalid value for "opts[:"offset"]" when calling GroupApi.get_principals_from_group, must be greater than or equal to 0.'
+      end
+
+      allowable_values = ["username"]
+      if @api_client.config.client_side_validation && opts[:'order_by'] && !allowable_values.include?(opts[:'order_by'])
+        fail ArgumentError, "invalid value for \"order_by\", must be one of #{allowable_values}"
+      end
       # resource path
       local_var_path = '/groups/{uuid}/principals/'.sub('{' + 'uuid' + '}', CGI.escape(uuid.to_s))
 
       # query parameters
       query_params = opts[:query_params] || {}
       query_params[:'principal_username'] = opts[:'principal_username'] if !opts[:'principal_username'].nil?
+      query_params[:'limit'] = opts[:'limit'] if !opts[:'limit'].nil?
+      query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
+      query_params[:'order_by'] = opts[:'order_by'] if !opts[:'order_by'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}
@@ -535,6 +562,7 @@ module RBACApiClient
     end
 
     # List the groups for a tenant
+    # By default, responses are sorted in ascending order by group name
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
@@ -552,6 +580,7 @@ module RBACApiClient
     end
 
     # List the groups for a tenant
+    # By default, responses are sorted in ascending order by group name
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
@@ -636,6 +665,7 @@ module RBACApiClient
     end
 
     # List the roles for a group in the tenant
+    # By default, responses are sorted in ascending order by role name
     # @param uuid [String] ID of group
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :exclude If this is set to true, the result would be roles excluding the ones in the group (default to false)
@@ -651,6 +681,7 @@ module RBACApiClient
     end
 
     # List the roles for a group in the tenant
+    # By default, responses are sorted in ascending order by role name
     # @param uuid [String] ID of group
     # @param [Hash] opts the optional parameters
     # @option opts [Boolean] :exclude If this is set to true, the result would be roles excluding the ones in the group

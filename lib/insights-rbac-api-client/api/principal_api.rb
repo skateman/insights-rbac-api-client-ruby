@@ -20,11 +20,13 @@ module RBACApiClient
       @api_client = api_client
     end
     # List the principals for a tenant
+    # By default, responses are sorted in ascending order by username
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
     # @option opts [Integer] :offset Parameter for selecting the offset of data. (default to 0)
     # @option opts [String] :usernames Usernames of principals to get
     # @option opts [String] :sort_order The sort order of the query, either ascending or descending
+    # @option opts [String] :email Exact e-mail address of principal to search for
     # @return [PrincipalPagination]
     def list_principals(opts = {})
       data, _status_code, _headers = list_principals_with_http_info(opts)
@@ -32,11 +34,13 @@ module RBACApiClient
     end
 
     # List the principals for a tenant
+    # By default, responses are sorted in ascending order by username
     # @param [Hash] opts the optional parameters
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.
     # @option opts [Integer] :offset Parameter for selecting the offset of data.
     # @option opts [String] :usernames Usernames of principals to get
     # @option opts [String] :sort_order The sort order of the query, either ascending or descending
+    # @option opts [String] :email Exact e-mail address of principal to search for
     # @return [Array<(PrincipalPagination, Integer, Hash)>] PrincipalPagination data, response status code and response headers
     def list_principals_with_http_info(opts = {})
       if @api_client.config.debugging
@@ -67,6 +71,7 @@ module RBACApiClient
       query_params[:'offset'] = opts[:'offset'] if !opts[:'offset'].nil?
       query_params[:'usernames'] = opts[:'usernames'] if !opts[:'usernames'].nil?
       query_params[:'sort_order'] = opts[:'sort_order'] if !opts[:'sort_order'].nil?
+      query_params[:'email'] = opts[:'email'] if !opts[:'email'].nil?
 
       # header parameters
       header_params = opts[:header_params] || {}

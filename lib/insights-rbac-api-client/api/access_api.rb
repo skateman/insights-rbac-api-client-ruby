@@ -20,7 +20,8 @@ module RBACApiClient
       @api_client = api_client
     end
     # Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
-    # @param application [String] The application name to obtain access for the principal
+    # Access responses are sorted in ascending order by an ID internal to the database
+    # @param application [String] The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :username Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned. (default to 10)
@@ -32,7 +33,8 @@ module RBACApiClient
     end
 
     # Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
-    # @param application [String] The application name to obtain access for the principal
+    # Access responses are sorted in ascending order by an ID internal to the database
+    # @param application [String] The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.
     # @param [Hash] opts the optional parameters
     # @option opts [String] :username Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
     # @option opts [Integer] :limit Parameter for selecting the amount of data returned.

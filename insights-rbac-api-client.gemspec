@@ -13,15 +13,15 @@ OpenAPI Generator version: 4.2.2
 =end
 
 $:.push File.expand_path("../lib", __FILE__)
-require "rbac-api-client/version"
+require "insights-rbac-api-client/version"
 
 Gem::Specification.new do |s|
-  s.name        = "rbac-api-client"
+  s.name        = "insights-rbac-api-client"
   s.version     = RBACApiClient::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["ManageIQ Authors"]
+  s.authors     = ["Insights Authors"]
   s.email       = [""]
-  s.homepage    = "https://github.com/ManageIQ/insights-rbac-api-client-ruby"
+  s.homepage    = "https://github.com/RedHatInsights/insights-rbac-api-client-ruby"
   s.summary     = "Role Based Access Control Ruby Gem"
   s.description = "Ruby client gem to connect to Insights RBAC Service"
   s.license     = 'Apache-2.0'
