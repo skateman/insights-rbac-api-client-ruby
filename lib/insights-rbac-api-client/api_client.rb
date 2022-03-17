@@ -184,7 +184,7 @@ module RBACApiClient
       return body if return_type == 'String'
 
       # ensuring a default content type
-      content_type = response.headers['Content-Type'] || 'application/json'
+      content_type = response.headers&.dig('Content-Type') || 'application/json'
 
       fail "Content-Type is not supported: #{content_type}" unless json_mime?(content_type)
 
