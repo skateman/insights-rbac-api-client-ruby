@@ -50,10 +50,10 @@ end
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **application** | **String**| The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications. | 
- **username** | **String**| Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header). | [optional] 
- **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional] [default to 10]
- **offset** | **Integer**| Parameter for selecting the offset of data. | [optional] [default to 0]
+ **application** | **String**| The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications. |
+ **username** | **String**| Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header). | [optional]
+ **limit** | **Integer**| Parameter for selecting the amount of data returned. | [optional]
+ **offset** | **Integer**| Parameter for selecting the offset of data. | [optional]
 
 ### Return type
 
