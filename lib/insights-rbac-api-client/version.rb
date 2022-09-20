@@ -11,5 +11,5 @@ OpenAPI Generator version: 4.2.2
 =end
 
 module RBACApiClient
-  VERSION = '1.0.0'
+  VERSION = '1.0.1'
 end
