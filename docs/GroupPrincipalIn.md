@@ -2,16 +2,17 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**principals** | [**Array&lt;PrincipalIn&gt;**](PrincipalIn.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **principals** | [**Array&lt;PrincipalIn&gt;**](PrincipalIn.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::GroupPrincipalIn.new(principals: null)
+instance = RBACApiClient::GroupPrincipalIn.new(
+  principals: null
+)
 ```
-
 

@@ -2,20 +2,21 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**key** | **String** |  | 
-**operation** | **String** |  | 
-**value** | **String** |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **key** | **String** |  |  |
+| **operation** | **String** |  |  |
+| **value** | [**ResourceDefinitionFilterValue**](ResourceDefinitionFilterValue.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::ResourceDefinitionFilter.new(key: cost-management.aws.account,
-                                 operation: null,
-                                 value: 123456)
+instance = RBACApiClient::ResourceDefinitionFilter.new(
+  key: cost-management.aws.account,
+  operation: null,
+  value: null
+)
 ```
-
 

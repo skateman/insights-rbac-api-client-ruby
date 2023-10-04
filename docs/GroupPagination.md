@@ -2,20 +2,21 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**meta** | [**PaginationMeta**](PaginationMeta.md) |  | [optional] 
-**links** | [**PaginationLinks**](PaginationLinks.md) |  | [optional] 
-**data** | [**Array&lt;GroupOut&gt;**](GroupOut.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **meta** | [**PaginationMeta**](PaginationMeta.md) |  | [optional] |
+| **links** | [**PaginationLinks**](PaginationLinks.md) |  | [optional] |
+| **data** | [**Array&lt;GroupOut&gt;**](GroupOut.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::GroupPagination.new(meta: null,
-                                 links: null,
-                                 data: null)
+instance = RBACApiClient::GroupPagination.new(
+  meta: null,
+  links: null,
+  data: null
+)
 ```
-
 

@@ -2,18 +2,21 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**description** | **String** |  | [optional] 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **name** | **String** |  |  |
+| **display_name** | **String** |  | [optional] |
+| **description** | **String** |  | [optional] |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::Role.new(name: RoleA,
-                                 description: A description of RoleA)
+instance = RBACApiClient::Role.new(
+  name: RoleA,
+  display_name: ARoleName,
+  description: A description of RoleA
+)
 ```
-
 

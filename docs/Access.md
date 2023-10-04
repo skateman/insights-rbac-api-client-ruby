@@ -2,18 +2,19 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**permission** | **String** |  | 
-**resource_definitions** | [**Array&lt;ResourceDefinition&gt;**](ResourceDefinition.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **permission** | **String** |  |  |
+| **resource_definitions** | [**Array&lt;ResourceDefinition&gt;**](ResourceDefinition.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::Access.new(permission: cost-management:*:read,
-                                 resource_definitions: null)
+instance = RBACApiClient::Access.new(
+  permission: cost-management:*:read,
+  resource_definitions: null
+)
 ```
-
 

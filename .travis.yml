@@ -1,11 +1,11 @@
 language: ruby
 cache: bundler
 rvm:
-  - 2.4
-  - 2.5
-  - 2.6
+  - 2.7
+  - 3.0
+  - 3.1
 script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
   - gem build insights-rbac-api-client.gemspec
-  - gem install ./insights-rbac-api-client-1.0.1.gem
+  - gem install ./insights-rbac-api-client-1.0.0.gem
