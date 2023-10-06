@@ -2,18 +2,19 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**description** | **String** |  | [optional] 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **name** | **String** |  |  |
+| **description** | **String** |  | [optional] |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::Group.new(name: GroupA,
-                                 description: A description of GroupA)
+instance = RBACApiClient::Group.new(
+  name: GroupA,
+  description: A description of GroupA
+)
 ```
-
 

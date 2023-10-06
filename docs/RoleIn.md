@@ -2,20 +2,23 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**name** | **String** |  | 
-**description** | **String** |  | [optional] 
-**access** | [**Array&lt;Access&gt;**](Access.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **name** | **String** |  |  |
+| **display_name** | **String** |  | [optional] |
+| **description** | **String** |  | [optional] |
+| **access** | [**Array&lt;Access&gt;**](Access.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::RoleIn.new(name: RoleA,
-                                 description: A description of RoleA,
-                                 access: null)
+instance = RBACApiClient::RoleIn.new(
+  name: RoleA,
+  display_name: ARoleName,
+  description: A description of RoleA,
+  access: null
+)
 ```
-
 

@@ -2,20 +2,21 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**meta** | [**PaginationMeta**](PaginationMeta.md) |  | [optional] 
-**links** | [**PaginationLinks**](PaginationLinks.md) |  | [optional] 
-**data** | [**Array&lt;RoleOut&gt;**](RoleOut.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **meta** | [**PaginationMeta**](PaginationMeta.md) |  | [optional] |
+| **links** | [**PaginationLinks**](PaginationLinks.md) |  | [optional] |
+| **data** | [**Array&lt;RoleOut&gt;**](RoleOut.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::RolePagination.new(meta: null,
-                                 links: null,
-                                 data: null)
+instance = RBACApiClient::RolePagination.new(
+  meta: null,
+  links: null,
+  data: null
+)
 ```
-
 

@@ -2,16 +2,17 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**attribute_filter** | [**ResourceDefinitionFilter**](ResourceDefinitionFilter.md) |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **attribute_filter** | [**ResourceDefinitionFilter**](ResourceDefinitionFilter.md) |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::ResourceDefinition.new(attribute_filter: null)
+instance = RBACApiClient::ResourceDefinition.new(
+  attribute_filter: null
+)
 ```
-
 

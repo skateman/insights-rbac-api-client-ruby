@@ -38,9 +38,467 @@
     {
       "name": "Status",
       "description": "Operations about status"
+    },
+    {
+      "name": "CrossAccountRequest",
+      "description": "Operations about cross account requests"
     }
   ],
   "paths": {
+    "/cross-account-requests/": {
+      "get": {
+        "tags": [
+          "CrossAccountRequest"
+        ],
+        "summary": "List the cross account requests for a user or account",
+        "description": "By default, responses are sorted in ascending order by created_at",
+        "operationId": "listCrossAccountRequests",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/QueryLimit"
+          },
+          {
+            "$ref": "#/components/parameters/QueryOffset"
+          },
+          {
+            "in": "query",
+            "name": "query_by",
+            "required": false,
+            "description": "Parameter for filtering resource by either a user's ID, or a client's org. The default value is target_org.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "user_id",
+                "target_org"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "account",
+            "required": false,
+            "description": "Parameter for filtering resource by an account number. Value can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id to further filter a user's requests by account number.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "org_id",
+            "required": false,
+            "description": "Parameter for filtering resource by an org id. Value can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id to further filter a user's requests by org id.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "approved_only",
+            "required": false,
+            "description": "Parameter for filtering resource which have been approved.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "description": "Parameter for filtering resource based on status.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "denied",
+                "cancelled",
+                "expired"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering by field. For inverse ordering, use '-', e.g. ?order_by=-start_date.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "request_id",
+                "start_date",
+                "end_date",
+                "created",
+                "modified",
+                "status"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of cross account request objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestPagination"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to list cross account requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CrossAccountRequest"
+        ],
+        "summary": "Create a cross account request",
+        "operationId": "createCrossAccountRequests",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrossAccountRequestIn"
+              }
+            }
+          },
+          "description": "CrossAccountRequest to create",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "An object describing the cross account request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to create cross account request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cross-account-requests/{uuid}/": {
+      "get": {
+        "tags": [
+          "CrossAccountRequest"
+        ],
+        "summary": "Get a cross account request",
+        "operationId": "getCrossAccountRequest",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "ID of cross account request to get",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query_by",
+            "required": false,
+            "description": "Parameter for filtering resource by either a user's ID, or a client's org. The default value is target_org.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "user_id",
+                "target_org"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "account",
+            "required": false,
+            "description": "Parameter for filtering resource by an account number. Value can be a comma-separated list of ids. To be used in tandem with ?query_by=user_id to further filter a user's requests by account number.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "approved_only",
+            "required": false,
+            "description": "Parameter for filtering resource which have been approved.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A cross account request object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to get group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CrossAccountRequest"
+        ],
+        "summary": "Update a cross account request",
+        "operationId": "putCrossAccountRequest",
+        "description": "For TAM requestor to update the start_date/end_date/roles of an existing cross account request.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "ID of cross account request to get",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrossAccountRequestUpdateIn"
+              }
+            }
+          },
+          "description": "Updates to CrossAccountRequest",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "A cross account request object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestDetail"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "An object describing the cross account request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to get group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "CrossAccountRequest"
+        ],
+        "summary": "Patch a cross account request",
+        "operationId": "patchCrossAccountRequest",
+        "description": "Patch the start_date/end_date/roles of an existing request. Could be used by TAM requestor to cancel request or target account admin to approve/deny request.",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "ID of cross account request to get",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CrossAccountRequestPatch"
+              }
+            }
+          },
+          "description": "Updates to CrossAccountRequest",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "A cross account request object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestDetail"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "An object describing the cross account request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrossAccountRequestOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to get group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/status/": {
       "get": {
         "tags": [
@@ -88,31 +546,103 @@
             "$ref": "#/components/parameters/QueryOffset"
           },
           {
+            "in": "query",
+            "name": "match_criteria",
+            "required": false,
+            "description": "Parameter for specifying the matching criteria for an object's name and/or email. Currently, match_criteria of partial searches for a username/email using \"starts with\" pattern.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "partial",
+                "exact"
+              ],
+              "default": "exact"
+            }
+          },
+          {
             "name": "usernames",
             "in": "query",
-            "description": "Usernames of principals to get",
+            "description": "Comma separated usernames of principals to get. If match_criteria is specified, only the first username will be picked up for search.",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "userA,userB"
             }
           },
           {
             "name": "sort_order",
             "in": "query",
-            "description": "The sort order of the query, either ascending or descending",
+            "description": "The sort order of the query, either ascending or descending. Defaults to ascending.",
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["asc", "desc"]
+              "enum": [
+                "asc",
+                "desc"
+              ]
             }
           },
           {
             "name": "email",
             "in": "query",
-            "description": "Exact e-mail address of principal to search for",
+            "description": "E-mail address of principal to search for. Could be combined with match_criteria for searching.",
             "required": false,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Set the status of users to get back.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled",
+                "all"
+              ],
+              "default": "enabled"
+            }
+          },
+          {
+            "name": "admin_only",
+            "in": "query",
+            "description": "Get only admin users within an account. Setting this would ignore the parameters: usernames, email",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ],
+              "default": "false"
+            }
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "username"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "username_only",
+            "required": false,
+            "description": "Parameter for optionally returning only usernames for principals, bypassing a call to IT.",
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true,
+                false
+              ]
             }
           }
         ],
@@ -225,12 +755,24 @@
             "$ref": "#/components/parameters/NameFilter"
           },
           {
+            "$ref": "#/components/parameters/NameMatchCriteria"
+          },
+          {
             "$ref": "#/components/parameters/ScopeFilter"
           },
           {
             "name": "username",
             "in": "query",
             "description": "A username for a principal to filter for groups",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_username",
+            "in": "query",
+            "description": "A username for a principal to filter for groups where principal is not a member and can be added manually",
             "required": false,
             "schema": {
               "type": "string"
@@ -271,11 +813,53 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["all", "any"]
+              "enum": [
+                "all",
+                "any"
+              ]
             }
           },
           {
-            "$ref": "#/components/parameters/OrderByFilter"
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering groups by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "modified",
+                "principalCount",
+                "policyCount"
+              ]
+            }
+          },
+          {
+            "name": "platform_default",
+            "in": "query",
+            "description": "An optional flag to return either platform default or non-platform default groups.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "admin_default",
+            "in": "query",
+            "description": "An optional flag to return either admin default or non-admin default groups.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "system",
+            "in": "query",
+            "description": "An optional flag to return either system or non-system groups.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -336,7 +920,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Group object",
+            "description": "A group object",
             "content": {
               "application/json": {
                 "schema": {
@@ -384,7 +968,7 @@
         "tags": [
           "Group"
         ],
-        "summary": "Udate a group in the tenant",
+        "summary": "Update a group in the tenant",
         "operationId": "updateGroup",
         "parameters": [
           {
@@ -567,7 +1151,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorNotFound"
                 }
               }
             }
@@ -603,6 +1187,20 @@
             }
           },
           {
+            "name": "admin_only",
+            "in": "query",
+            "description": "Get only admin users within an account.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ],
+              "default": "false"
+            }
+          },
+          {
             "name": "principal_username",
             "in": "query",
             "required": false,
@@ -624,7 +1222,22 @@
             "description": "Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username",
             "schema": {
               "type": "string",
-              "enum": ["username"]
+              "enum": [
+                "username"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "username_only",
+            "required": false,
+            "description": "Parameter for optionally returning only usernames for principals, bypassing a call to IT.",
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true,
+                false
+              ]
             }
           }
         ],
@@ -719,7 +1332,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorNotFound"
                 }
               }
             }
@@ -776,10 +1389,37 @@
             }
           },
           {
+            "name": "role_display_name",
+            "in": "query",
+            "required": false,
+            "description": "Parameter for filtering group roles by role `display_name` using string contains search.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "role_description",
             "in": "query",
             "required": false,
             "description": "Parameter for filtering group roles by role `description` using string contains search.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role_system",
+            "required": false,
+            "description": "Parameter for filtering group roles by system flag.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "role_external_tenant",
+            "in": "query",
+            "required": false,
+            "description": "Parameter for filtering group roles by role `external_tenant` using string search.",
             "schema": {
               "type": "string"
             }
@@ -794,11 +1434,12 @@
             "in": "query",
             "name": "order_by",
             "required": false,
-            "description": "Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
+            "description": "Parameter for ordering roles by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
             "schema": {
               "type": "string",
               "enum": [
                 "name",
+                "display_name",
                 "modified",
                 "policyCount"
               ]
@@ -997,8 +1638,8 @@
         "tags": [
           "Role"
         ],
-        "summary": "Create a roles for a tenant",
-        "operationId": "createRoles",
+        "summary": "Create a role for a tenant",
+        "operationId": "createRole",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1064,10 +1705,37 @@
             "$ref": "#/components/parameters/NameFilter"
           },
           {
+            "$ref": "#/components/parameters/SystemFilter"
+          },
+          {
+            "in": "query",
+            "name": "display_name",
+            "required": false,
+            "description": "Parameter for filtering resource by display_name using string contains search.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/NameMatchCriteria"
+          },
+          {
             "$ref": "#/components/parameters/ScopeFilter"
           },
           {
-            "$ref": "#/components/parameters/OrderByFilter"
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering roles by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "display_name",
+                "modified",
+                "policyCount"
+              ]
+            }
           },
           {
             "name": "add_fields",
@@ -1080,7 +1748,8 @@
                 "type": "string",
                 "enum": [
                   "groups_in",
-                  "groups_in_count"
+                  "groups_in_count",
+                  "access"
                 ]
               }
             },
@@ -1092,6 +1761,33 @@
             "in": "query",
             "description": "Unique username of the principal to obtain roles for (only available for admins, and if supplied, takes precedence over the identity header).",
             "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "application",
+            "in": "query",
+            "description": "The application name(s) to filter roles by, from permissions or external tenant name. This is an exact match. You may also use a comma-separated list to match on multiple applications.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permission",
+            "in": "query",
+            "description": "The permission(s) to filter roles by. This is an exact match. You may also use a comma-separated list to match on multiple permissions.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "external_tenant",
+            "in": "query",
+            "required": false,
+            "description": "Parameter for filtering roles by external tenant name using string search.",
             "schema": {
               "type": "string"
             }
@@ -1151,11 +1847,14 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "$ref": "#/components/parameters/ScopeFilter"
           }
         ],
         "responses": {
           "200": {
-            "description": "A Role object",
+            "description": "A role object",
             "content": {
               "application/json": {
                 "schema": {
@@ -1260,7 +1959,7 @@
         "tags": [
           "Role"
         ],
-        "summary": "Update a Role in the tenant",
+        "summary": "Update a role in the tenant",
         "operationId": "updateRole",
         "parameters": [
           {
@@ -1282,7 +1981,7 @@
               }
             }
           },
-          "description": "Update to a Role",
+          "description": "Update to a role",
           "required": true
         },
         "responses": {
@@ -1294,6 +1993,80 @@
           },
           "403": {
             "description": "Insufficient permissions to update role",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Role"
+        ],
+        "summary": "Patch a role in the tenant",
+        "operationId": "patchRole",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "ID of role to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolePatch"
+              }
+            }
+          },
+          "description": "Patch to a role"
+        },
+        "responses": {
+          "200": {
+            "description": "Role patched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleWithAccess"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to patch role",
             "content": {
               "application/json": {
                 "schema": {
@@ -1468,7 +2241,17 @@
             "$ref": "#/components/parameters/GroupUUIDFilter"
           },
           {
-            "$ref": "#/components/parameters/OrderByFilter"
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering policies by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "modified"
+              ]
+            }
           }
         ],
         "responses": {
@@ -1519,7 +2302,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Policy object",
+            "description": "A policy object",
             "content": {
               "application/json": {
                 "schema": {
@@ -1584,7 +2367,7 @@
         },
         "responses": {
           "200": {
-            "description": "A Policy object",
+            "description": "A policy object",
             "content": {
               "application/json": {
                 "schema": {
@@ -1694,6 +2477,35 @@
             }
           },
           {
+            "name": "order_by",
+            "in": "query",
+            "description": "Parameter for ordering roles by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-application",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application",
+                "resource_type",
+                "verb"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Set the status of users to get back.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "enabled",
+                "disabled",
+                "all"
+              ],
+              "default": "enabled"
+            }
+          },
+          {
             "$ref": "#/components/parameters/QueryLimit"
           },
           {
@@ -1720,6 +2532,269 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions/": {
+      "get": {
+        "tags": [
+          "Permission"
+        ],
+        "summary": "List the permissions for a tenant",
+        "description": "By default, responses are sorted in ascending order by permission application.",
+        "operationId": "listPermissions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/QueryLimit"
+          },
+          {
+            "$ref": "#/components/parameters/QueryOffset"
+          },
+          {
+            "in": "query",
+            "name": "order_by",
+            "required": false,
+            "description": "Parameter for ordering permissions by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-application",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application",
+                "resource_type",
+                "verb",
+                "permission"
+              ]
+            }
+          },
+          {
+            "name": "application",
+            "in": "query",
+            "description": "Exact match for the application name of a permission. You may also use a comma-separated list to match on multiple applications.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resource_type",
+            "in": "query",
+            "description": "Exact match for the resource type name of a permission. You may also use a comma-separated list to match on multiple resource_types.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "verb",
+            "in": "query",
+            "description": "Exact match for the operation verb name of a permission You may also use a comma-separated list to match on multiple verbs.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "permission",
+            "in": "query",
+            "description": "Partial match for the aggregate permission value name of a permission object.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_globals",
+            "in": "query",
+            "description": "If set to 'true', this will exclude any permission with a global allowance on either 'application', 'resource_type' or 'verb'. The default is 'false'.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "false",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          },
+          {
+            "name": "exclude_roles",
+            "in": "query",
+            "description": "An optional string filter which accepts one or more role UUIDs, comma-separated, to return permissions not associated with the supplied role(s).",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "allowed_only",
+            "in": "query",
+            "description": "If set to 'true', this will exclude any permission with a role where the 'application' is not in the role create allow list.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "false",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of permission objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionPagination"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to list permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions/options/": {
+      "get": {
+        "tags": [
+          "Permission"
+        ],
+        "summary": "List the available options for fields of permissions for a tenant",
+        "description": "By default, options of application is returned. And could be resource_type or verb on demand.",
+        "operationId": "listPermissionOptions",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/QueryLimit"
+          },
+          {
+            "$ref": "#/components/parameters/QueryOffset"
+          },
+          {
+            "name": "field",
+            "in": "query",
+            "description": "specify which fields of permission to display",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application",
+                "resource_type",
+                "verb"
+              ]
+            }
+          },
+          {
+            "name": "application",
+            "in": "query",
+            "description": "Filter returned options based on application. You may also use a comma-separated list to filter on multiple applications.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resource_type",
+            "in": "query",
+            "description": "Filter returned options based on resource_type. You may also use a comma-separated list to filter on multiple resource_types.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "verb",
+            "in": "query",
+            "description": "Filter returned options based on verb. You may also use a comma-separated list to filter on multiple verbs.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_globals",
+            "in": "query",
+            "description": "If set to 'true', this will exclude any permission option with a global allowance on the supplied '?field=' value of 'application', 'resource_type' or 'verb'. The default is 'false'.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "false",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          },
+          {
+            "name": "allowed_only",
+            "in": "query",
+            "description": "If set to 'true', this will exclude any permission with a role where the 'application' is not in the role create allow list.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "false",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of options for field of permission",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PermissionOptionsPagination"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Insufficient permissions to list permissions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error403"
                 }
               }
             }
@@ -1777,6 +2852,15 @@
           "type": "string"
         }
       },
+      "SystemFilter": {
+        "in": "query",
+        "name": "system",
+        "required": false,
+        "description": "Parameter for filtering resource by system flag.",
+        "schema": {
+          "type": "boolean"
+        }
+      },
       "GroupNameFilter": {
         "in": "query",
         "name": "group_name",
@@ -1796,15 +2880,6 @@
           "format": "uuid"
         }
       },
-      "OrderByFilter": {
-        "in": "query",
-        "name": "order_by",
-        "required": false,
-        "description": "Parameter for ordering resource by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-name",
-        "schema": {
-          "type": "string"
-        }
-      },
       "ScopeFilter": {
         "in": "query",
         "name": "scope",
@@ -1817,6 +2892,19 @@
             "principal"
           ],
           "default": "account"
+        }
+      },
+      "NameMatchCriteria": {
+        "in": "query",
+        "name": "name_match",
+        "required": false,
+        "description": "Parameter for specifying the matching criteria for an object's name or display_name.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "partial",
+            "exact"
+          ]
         }
       }
     },
@@ -1861,9 +2949,46 @@
             "type": "array",
             "items": {
               "type": "object",
-              "example": {
-                "detail": "Not Found.",
-                "status": 404
+              "properties": {
+                "detail": {
+                  "type": "string",
+                  "example": "Not found."
+                },
+                "status": {
+                  "type": "string",
+                  "example": "403"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ErrorNotFound": {
+        "description": "Error structure for the \"Not Found\" responses.",
+        "required": [
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "detail": {
+                  "description": "Detail of the error.",
+                  "type": "string",
+                  "example": "Not found."
+                },
+                "status": {
+                  "description": "Status of the response",
+                  "type": "string",
+                  "example": "404"
+                },
+                "source": {
+                  "description": "Source of the error.",
+                  "type": "string",
+                  "example": "principals"
+                }
               }
             }
           }
@@ -1878,10 +3003,19 @@
             "type": "array",
             "items": {
               "type": "object",
-              "example": {
-                "detail": "You do not have permission to perform this action.",
-                "source": "detail",
-                "status": 403
+              "properties": {
+                "detail": {
+                  "type": "string",
+                  "example": "You do not have permission to perform this action."
+                },
+                "source": {
+                  "type": "string",
+                  "example": "detail"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "403"
+                }
               }
             }
           }
@@ -1987,6 +3121,30 @@
           },
           "is_active": {
             "type": "boolean"
+          },
+          "is_org_admin": {
+            "type": "boolean"
+          },
+          "external_source_id": {
+            "oneOf": [
+              {
+                "type": "string"
+              }, {
+                "type": "integer"
+              }
+            ],
+            "example": "1"
+          }
+        }
+      },
+      "PrincipalMinimal": {
+        "required": [
+          "username"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "smithj"
           }
         }
       },
@@ -2025,7 +3183,14 @@
               "data": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/Principal"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Principal"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PrincipalMinimal"
+                    }
+                  ]
                 }
               }
             }
@@ -2089,6 +3254,10 @@
                 "default": false
               },
               "platform_default": {
+                "type": "boolean",
+                "default": false
+              },
+              "admin_default": {
                 "type": "boolean",
                 "default": false
               }
@@ -2227,6 +3396,316 @@
           }
         ]
       },
+      "CrossAccountRequestDetail": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequestDetailByAccount"
+          },
+          {
+            "$ref": "#/components/schemas/CrossAccountRequestDetailByUseId"
+          }
+        ]
+      },
+      "CrossAccountRequestDetailByAccount": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequestWithRoles"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "format": "string",
+                "example": "first_name"
+              },
+              "last_name": {
+                "format": "string",
+                "example": "last_name"
+              },
+              "email": {
+                "format": "string",
+                "example": "email"
+              }
+            }
+          }
+        ]
+      },
+      "CrossAccountRequestDetailByUseId": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequestWithRoles"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "format": "string",
+                "example": "1234"
+              }
+            }
+          }
+        ]
+      },
+      "CrossAccountRequestPagination": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CrossAccountRequestByAccount"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CrossAccountRequestByUserId"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "CrossAccountRequestIn": {
+        "required": [
+          "target_account",
+          "start_date",
+          "end_date",
+          "roles"
+        ],
+        "properties": {
+          "target_account": {
+            "type": "string",
+            "example": "12345"
+          },
+          "target_org": {
+            "type": "string",
+            "example": "12345"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Role Name"
+            }
+          }
+        }
+      },
+      "CrossAccountRequestUpdateIn": {
+        "required": [
+          "start_date",
+          "end_date",
+          "roles"
+        ],
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Role Name"
+            }
+          }
+        }
+      },
+      "CrossAccountRequestPatch": {
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "Role Name"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "expired",
+              "cancelled",
+              "denied"
+            ]
+          }
+        }
+      },
+      "CrossAccountRequestByAccount": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "first_name": {
+                "type": "string",
+                "example": "Jane"
+              },
+              "last_name": {
+                "type": "string",
+                "example": "Doe"
+              },
+              "email": {
+                "type": "string",
+                "example": "test@redhat.com"
+              }
+            }
+          }
+        ]
+      },
+      "CrossAccountRequestByUserId": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "example": "1234"
+              }
+            }
+          }
+        ]
+      },
+      "CrossAccountRequest": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2ad8cac5-336e-44c6-9b16-15ac84224d4b"
+          },
+          "target_account": {
+            "type": "string",
+            "example": "12345"
+          },
+          "target_org": {
+            "type": "string",
+            "example": "12345"
+          },
+          "status": {
+            "type": "string",
+            "example": "pending"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-01-21T17:32:28Z"
+          },
+          "start_date": {
+            "format": "date-time",
+            "example": "2019-01-21T17:32:28Z"
+          },
+          "end_date": {
+            "format": "date-time",
+            "example": "2019-01-21T17:32:28Z"
+          }
+        }
+      },
+      "CrossAccountRequestWithRoles": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "2ad8cac5-336e-44c6-9b16-15ac84224d4b"
+          },
+          "target_account": {
+            "type": "string",
+            "example": "12345"
+          },
+          "target_org": {
+            "type": "string",
+            "example": "12345"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "01/01/2021"
+          },
+          "status": {
+            "type": "string",
+            "example": "pending"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2019-01-21T17:32:28Z"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "display_name": {
+                  "type": "string",
+                  "example": "display_name"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "description"
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Permission"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CrossAccountRequestOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CrossAccountRequestWithRoles"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "example": "1234"
+              }
+            }
+          }
+        ]
+      },
       "ResourceDefinitionFilter": {
         "required": [
           "key",
@@ -2246,8 +3725,26 @@
             ]
           },
           "value": {
-            "type": "string",
-            "example": "123456"
+            "oneOf": [
+              {
+                "type": "string",
+                "example": "123456",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "example": "value1"
+                    }
+                  ]
+                },
+                "example": ["value1", "value2"],
+                "nullable": true
+              }
+            ]
           }
         }
       },
@@ -2287,6 +3784,10 @@
           "name": {
             "type": "string",
             "example": "RoleA"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "ARoleName"
           },
           "description": {
             "type": "string",
@@ -2392,6 +3893,18 @@
               "platform_default": {
                 "type": "boolean",
                 "default": false
+              },
+              "admin_default": {
+                "type": "boolean",
+                "default": false
+              },
+              "external_role_id": {
+                "type": "string",
+                "example": "ExternalRoleId"
+              },
+              "external_tenant": {
+                "type": "string",
+                "example": "ExternalTenant"
               }
             }
           }
@@ -2415,7 +3928,8 @@
               "accessCount",
               "applications",
               "system",
-              "platform_default"
+              "platform_default",
+              "admin_default"
             ],
             "properties": {
               "policyCount": {
@@ -2441,6 +3955,10 @@
                 "type": "boolean",
                 "default": false
               },
+              "admin_default": {
+                "type": "boolean",
+                "default": false
+              },
               "groups_in_count": {
                 "type": "integer",
                 "minimum": 0
@@ -2450,10 +3968,40 @@
                 "items": {
                   "$ref": "#/components/schemas/AdditionalGroup"
                 }
+              },
+              "external_role_id": {
+                "type": "string",
+                "example": "ExternalRoleId"
+              },
+              "external_tenant": {
+                "type": "string",
+                "example": "ExternalTenant"
+              },
+              "access": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Access"
+                }
               }
             }
           }
         ]
+      },
+      "RolePatch": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "RoleA"
+          },
+          "display_name": {
+            "type": "string",
+            "example": "ARoleName"
+          },
+          "description": {
+            "type": "string",
+            "example": "A description of RoleA"
+          }
+        }
       },
       "RoleWithAccess": {
         "allOf": [
@@ -2606,43 +4154,74 @@
           "commit": {
             "type": "string",
             "example": "178d2ea"
-          },
-          "server_address": {
-            "type": "string",
-            "example": "127.0.0.1:8000"
-          },
-          "platform_info": {
-            "type": "object",
-            "example": {
-              "system": "Darwin",
-              "node": "node-1.example.com",
-              "release": "17.5.0",
-              "version": "Darwin Kernel Version 17.5.0",
-              "machine": "x86_64",
-              "processor": "i386"
-            }
-          },
-          "python_version": {
-            "type": "string",
-            "example": "3.6.1"
-          },
-          "modules": {
-            "type": "object",
-            "example": {
-              "coverage": "4.5.1",
-              "coverage.version": "4.5.1",
-              "coverage.xmlreport": "4.5.1",
-              "cryptography": "2.0.3",
-              "ctypes": "1.1.0",
-              "ctypes.macholib": "1.0",
-              "decimal": "1.70",
-              "django": "1.11.5",
-              "django.utils.six": "1.10.0",
-              "django_filters": "1.0.4",
-              "http.server": "0.6"
-            }
           }
         }
+      },
+      "Permission": {
+        "properties": {
+          "application": {
+            "type": "string",
+            "example": "rbac"
+          },
+          "resource_type": {
+            "type": "string",
+            "example": "group"
+          },
+          "verb": {
+            "type": "string",
+            "example": "read"
+          },
+          "permission": {
+            "type": "string",
+            "example": "rbac:group:read"
+          },
+          "description": {
+            "type": "string",
+            "example": "Describe the usage of permission."
+          }
+        }
+      },
+      "PermissionPagination": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Permission"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "PermissionOptionsPagination": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

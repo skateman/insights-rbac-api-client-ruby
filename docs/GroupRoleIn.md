@@ -2,16 +2,17 @@
 
 ## Properties
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**roles** | **Array&lt;String&gt;** |  | 
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **roles** | **Array&lt;String&gt;** |  |  |
 
-## Code Sample
+## Example
 
 ```ruby
-require 'RBACApiClient'
+require 'insights-rbac-api-client'
 
-instance = RBACApiClient::GroupRoleIn.new(roles: null)
+instance = RBACApiClient::GroupRoleIn.new(
+  roles: null
+)
 ```
-
 

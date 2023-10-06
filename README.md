@@ -67,8 +67,10 @@ api_instance = RBACApiClient::AccessApi.new
 application = 'application_example' # String | The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.
 opts = {
   username: 'username_example', # String | Unique username of the principal to obtain access for (only available for admins, and if supplied, takes precedence over the identity header).
-  limit: 10, # Integer | Parameter for selecting the amount of data returned.
-  offset: 0 # Integer | Parameter for selecting the offset of data.
+  order_by: 'application', # String | Parameter for ordering roles by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-application
+  status: 'enabled', # String | Set the status of users to get back.
+  limit: 56, # Integer | Parameter for selecting the amount of data returned.
+  offset: 56 # Integer | Parameter for selecting the offset of data.
 }
 
 begin
@@ -83,11 +85,16 @@ end
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/api/rbac/v1*
+All URIs are relative to */api/rbac/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *RBACApiClient::AccessApi* | [**get_principal_access**](docs/AccessApi.md#get_principal_access) | **GET** /access/ | Get the permitted access for a principal in the tenant (defaults to principal from the identity header)
+*RBACApiClient::CrossAccountRequestApi* | [**create_cross_account_requests**](docs/CrossAccountRequestApi.md#create_cross_account_requests) | **POST** /cross-account-requests/ | Create a cross account request
+*RBACApiClient::CrossAccountRequestApi* | [**get_cross_account_request**](docs/CrossAccountRequestApi.md#get_cross_account_request) | **GET** /cross-account-requests/{uuid}/ | Get a cross account request
+*RBACApiClient::CrossAccountRequestApi* | [**list_cross_account_requests**](docs/CrossAccountRequestApi.md#list_cross_account_requests) | **GET** /cross-account-requests/ | List the cross account requests for a user or account
+*RBACApiClient::CrossAccountRequestApi* | [**patch_cross_account_request**](docs/CrossAccountRequestApi.md#patch_cross_account_request) | **PATCH** /cross-account-requests/{uuid}/ | Patch a cross account request
+*RBACApiClient::CrossAccountRequestApi* | [**put_cross_account_request**](docs/CrossAccountRequestApi.md#put_cross_account_request) | **PUT** /cross-account-requests/{uuid}/ | Update a cross account request
 *RBACApiClient::GroupApi* | [**add_principal_to_group**](docs/GroupApi.md#add_principal_to_group) | **POST** /groups/{uuid}/principals/ | Add a principal to a group in the tenant
 *RBACApiClient::GroupApi* | [**add_role_to_group**](docs/GroupApi.md#add_role_to_group) | **POST** /groups/{uuid}/roles/ | Add a role to a group in the tenant
 *RBACApiClient::GroupApi* | [**create_group**](docs/GroupApi.md#create_group) | **POST** /groups/ | Create a group in a tenant
@@ -98,19 +105,22 @@ Class | Method | HTTP request | Description
 *RBACApiClient::GroupApi* | [**get_principals_from_group**](docs/GroupApi.md#get_principals_from_group) | **GET** /groups/{uuid}/principals/ | Get a list of principals from a group in the tenant
 *RBACApiClient::GroupApi* | [**list_groups**](docs/GroupApi.md#list_groups) | **GET** /groups/ | List the groups for a tenant
 *RBACApiClient::GroupApi* | [**list_roles_for_group**](docs/GroupApi.md#list_roles_for_group) | **GET** /groups/{uuid}/roles/ | List the roles for a group in the tenant
-*RBACApiClient::GroupApi* | [**update_group**](docs/GroupApi.md#update_group) | **PUT** /groups/{uuid}/ | Udate a group in the tenant
+*RBACApiClient::GroupApi* | [**update_group**](docs/GroupApi.md#update_group) | **PUT** /groups/{uuid}/ | Update a group in the tenant
+*RBACApiClient::PermissionApi* | [**list_permission_options**](docs/PermissionApi.md#list_permission_options) | **GET** /permissions/options/ | List the available options for fields of permissions for a tenant
+*RBACApiClient::PermissionApi* | [**list_permissions**](docs/PermissionApi.md#list_permissions) | **GET** /permissions/ | List the permissions for a tenant
 *RBACApiClient::PolicyApi* | [**create_policies**](docs/PolicyApi.md#create_policies) | **POST** /policies/ | Create a policy in a tenant
 *RBACApiClient::PolicyApi* | [**delete_policy**](docs/PolicyApi.md#delete_policy) | **DELETE** /policies/{uuid}/ | Delete a policy in the tenant
 *RBACApiClient::PolicyApi* | [**get_policy**](docs/PolicyApi.md#get_policy) | **GET** /policies/{uuid}/ | Get a policy in the tenant
 *RBACApiClient::PolicyApi* | [**list_policies**](docs/PolicyApi.md#list_policies) | **GET** /policies/ | List the policies in the tenant
 *RBACApiClient::PolicyApi* | [**update_policy**](docs/PolicyApi.md#update_policy) | **PUT** /policies/{uuid}/ | Update a policy in the tenant
 *RBACApiClient::PrincipalApi* | [**list_principals**](docs/PrincipalApi.md#list_principals) | **GET** /principals/ | List the principals for a tenant
-*RBACApiClient::RoleApi* | [**create_roles**](docs/RoleApi.md#create_roles) | **POST** /roles/ | Create a roles for a tenant
+*RBACApiClient::RoleApi* | [**create_role**](docs/RoleApi.md#create_role) | **POST** /roles/ | Create a role for a tenant
 *RBACApiClient::RoleApi* | [**delete_role**](docs/RoleApi.md#delete_role) | **DELETE** /roles/{uuid}/ | Delete a role in the tenant
 *RBACApiClient::RoleApi* | [**get_role**](docs/RoleApi.md#get_role) | **GET** /roles/{uuid}/ | Get a role in the tenant
 *RBACApiClient::RoleApi* | [**get_role_access**](docs/RoleApi.md#get_role_access) | **GET** /roles/{uuid}/access/ | Get access for a role in the tenant
 *RBACApiClient::RoleApi* | [**list_roles**](docs/RoleApi.md#list_roles) | **GET** /roles/ | List the roles for a tenant
-*RBACApiClient::RoleApi* | [**update_role**](docs/RoleApi.md#update_role) | **PUT** /roles/{uuid}/ | Update a Role in the tenant
+*RBACApiClient::RoleApi* | [**patch_role**](docs/RoleApi.md#patch_role) | **PATCH** /roles/{uuid}/ | Patch a role in the tenant
+*RBACApiClient::RoleApi* | [**update_role**](docs/RoleApi.md#update_role) | **PUT** /roles/{uuid}/ | Update a role in the tenant
 *RBACApiClient::StatusApi* | [**get_status**](docs/StatusApi.md#get_status) | **GET** /status/ | Obtain server status
 
 
@@ -118,48 +128,64 @@ Class | Method | HTTP request | Description
 
  - [RBACApiClient::Access](docs/Access.md)
  - [RBACApiClient::AccessPagination](docs/AccessPagination.md)
- - [RBACApiClient::AccessPaginationAllOf](docs/AccessPaginationAllOf.md)
+ - [RBACApiClient::AddRoleToGroup200Response](docs/AddRoleToGroup200Response.md)
  - [RBACApiClient::AdditionalGroup](docs/AdditionalGroup.md)
+ - [RBACApiClient::CrossAccountRequest](docs/CrossAccountRequest.md)
+ - [RBACApiClient::CrossAccountRequestByAccount](docs/CrossAccountRequestByAccount.md)
+ - [RBACApiClient::CrossAccountRequestByUserId](docs/CrossAccountRequestByUserId.md)
+ - [RBACApiClient::CrossAccountRequestDetail](docs/CrossAccountRequestDetail.md)
+ - [RBACApiClient::CrossAccountRequestDetailByAccount](docs/CrossAccountRequestDetailByAccount.md)
+ - [RBACApiClient::CrossAccountRequestDetailByUseId](docs/CrossAccountRequestDetailByUseId.md)
+ - [RBACApiClient::CrossAccountRequestIn](docs/CrossAccountRequestIn.md)
+ - [RBACApiClient::CrossAccountRequestOut](docs/CrossAccountRequestOut.md)
+ - [RBACApiClient::CrossAccountRequestPagination](docs/CrossAccountRequestPagination.md)
+ - [RBACApiClient::CrossAccountRequestPaginationAllOfDataInner](docs/CrossAccountRequestPaginationAllOfDataInner.md)
+ - [RBACApiClient::CrossAccountRequestPatch](docs/CrossAccountRequestPatch.md)
+ - [RBACApiClient::CrossAccountRequestUpdateIn](docs/CrossAccountRequestUpdateIn.md)
+ - [RBACApiClient::CrossAccountRequestWithRoles](docs/CrossAccountRequestWithRoles.md)
+ - [RBACApiClient::CrossAccountRequestWithRolesRolesInner](docs/CrossAccountRequestWithRolesRolesInner.md)
  - [RBACApiClient::Error](docs/Error.md)
  - [RBACApiClient::Error403](docs/Error403.md)
+ - [RBACApiClient::Error403ErrorsInner](docs/Error403ErrorsInner.md)
+ - [RBACApiClient::ErrorErrorsInner](docs/ErrorErrorsInner.md)
+ - [RBACApiClient::ErrorNotFound](docs/ErrorNotFound.md)
+ - [RBACApiClient::ErrorNotFoundErrorsInner](docs/ErrorNotFoundErrorsInner.md)
  - [RBACApiClient::Group](docs/Group.md)
  - [RBACApiClient::GroupOut](docs/GroupOut.md)
  - [RBACApiClient::GroupPagination](docs/GroupPagination.md)
- - [RBACApiClient::GroupPaginationAllOf](docs/GroupPaginationAllOf.md)
  - [RBACApiClient::GroupPrincipalIn](docs/GroupPrincipalIn.md)
  - [RBACApiClient::GroupRoleIn](docs/GroupRoleIn.md)
  - [RBACApiClient::GroupRolesPagination](docs/GroupRolesPagination.md)
  - [RBACApiClient::GroupWithPrincipals](docs/GroupWithPrincipals.md)
- - [RBACApiClient::GroupWithPrincipalsAllOf](docs/GroupWithPrincipalsAllOf.md)
  - [RBACApiClient::GroupWithPrincipalsAndRoles](docs/GroupWithPrincipalsAndRoles.md)
- - [RBACApiClient::GroupWithPrincipalsAndRolesAllOf](docs/GroupWithPrincipalsAndRolesAllOf.md)
- - [RBACApiClient::InlineResponse200](docs/InlineResponse200.md)
  - [RBACApiClient::ListPagination](docs/ListPagination.md)
  - [RBACApiClient::PaginationLinks](docs/PaginationLinks.md)
  - [RBACApiClient::PaginationMeta](docs/PaginationMeta.md)
+ - [RBACApiClient::Permission](docs/Permission.md)
+ - [RBACApiClient::PermissionOptionsPagination](docs/PermissionOptionsPagination.md)
+ - [RBACApiClient::PermissionPagination](docs/PermissionPagination.md)
  - [RBACApiClient::Policy](docs/Policy.md)
  - [RBACApiClient::PolicyExtended](docs/PolicyExtended.md)
- - [RBACApiClient::PolicyExtendedAllOf](docs/PolicyExtendedAllOf.md)
  - [RBACApiClient::PolicyIn](docs/PolicyIn.md)
- - [RBACApiClient::PolicyInAllOf](docs/PolicyInAllOf.md)
  - [RBACApiClient::PolicyPagination](docs/PolicyPagination.md)
- - [RBACApiClient::PolicyPaginationAllOf](docs/PolicyPaginationAllOf.md)
  - [RBACApiClient::Principal](docs/Principal.md)
+ - [RBACApiClient::PrincipalExternalSourceId](docs/PrincipalExternalSourceId.md)
  - [RBACApiClient::PrincipalIn](docs/PrincipalIn.md)
+ - [RBACApiClient::PrincipalMinimal](docs/PrincipalMinimal.md)
  - [RBACApiClient::PrincipalOut](docs/PrincipalOut.md)
  - [RBACApiClient::PrincipalPagination](docs/PrincipalPagination.md)
- - [RBACApiClient::PrincipalPaginationAllOf](docs/PrincipalPaginationAllOf.md)
+ - [RBACApiClient::PrincipalPaginationAllOfDataInner](docs/PrincipalPaginationAllOfDataInner.md)
  - [RBACApiClient::ResourceDefinition](docs/ResourceDefinition.md)
  - [RBACApiClient::ResourceDefinitionFilter](docs/ResourceDefinitionFilter.md)
+ - [RBACApiClient::ResourceDefinitionFilterValue](docs/ResourceDefinitionFilterValue.md)
+ - [RBACApiClient::ResourceDefinitionFilterValueOneOfInner](docs/ResourceDefinitionFilterValueOneOfInner.md)
  - [RBACApiClient::Role](docs/Role.md)
  - [RBACApiClient::RoleIn](docs/RoleIn.md)
- - [RBACApiClient::RoleInAllOf](docs/RoleInAllOf.md)
  - [RBACApiClient::RoleOut](docs/RoleOut.md)
  - [RBACApiClient::RoleOutDynamic](docs/RoleOutDynamic.md)
- - [RBACApiClient::RoleOutDynamicAllOf](docs/RoleOutDynamicAllOf.md)
  - [RBACApiClient::RolePagination](docs/RolePagination.md)
  - [RBACApiClient::RolePaginationDynamic](docs/RolePaginationDynamic.md)
- - [RBACApiClient::RolePaginationDynamicAllOf](docs/RolePaginationDynamicAllOf.md)
+ - [RBACApiClient::RolePatch](docs/RolePatch.md)
  - [RBACApiClient::RoleWithAccess](docs/RoleWithAccess.md)
  - [RBACApiClient::Status](docs/Status.md)
  - [RBACApiClient::Timestamped](docs/Timestamped.md)
@@ -169,6 +195,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Authorization
 
 
+Authentication schemes defined for the API:
 ### basic_auth
 
 - **Type**: HTTP basic authentication
