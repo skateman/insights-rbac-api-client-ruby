@@ -1,6 +1,6 @@
 # RBACApiClient::GroupApi
 
-All URIs are relative to */api/rbac/v1*
+All URIs are relative to *https://console.redhat.com/api/rbac/v1*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
@@ -37,7 +37,7 @@ end
 
 api_instance = RBACApiClient::GroupApi.new
 uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | ID of group to update
-group_principal_in = RBACApiClient::GroupPrincipalIn.new({principals: [RBACApiClient::PrincipalIn.new({username: 'smithj'})]}) # GroupPrincipalIn | Principal to add to a group
+group_principal_in = RBACApiClient::GroupPrincipalIn.new({principals: [RBACApiClient::GroupPrincipalInPrincipalsInner.new({username: 'smithj', type: 'service-account', client_id: 'fe593ba0-9c62-013c-1dc2-6aa2427b506a'})]}) # GroupPrincipalIn | Principal to add to a group
 
 begin
   # Add a principal to a group in the tenant
@@ -294,7 +294,7 @@ nil (empty response body)
 
 ## delete_principal_from_group
 
-> delete_principal_from_group(uuid, usernames)
+> delete_principal_from_group(uuid, opts)
 
 Remove a principal from a group in the tenant
 
@@ -312,11 +312,14 @@ end
 
 api_instance = RBACApiClient::GroupApi.new
 uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | ID of group to update
-usernames = 'usernames_example' # String | A comma separated list of usernames for principals to remove from the group
+opts = {
+  usernames: 'usernames_example', # String | A comma separated list of usernames for principals to remove from the group
+  service_accounts: 'service_accounts_example' # String | A comma separated list of usernames for service accounts to remove from the group
+}
 
 begin
   # Remove a principal from a group in the tenant
-  api_instance.delete_principal_from_group(uuid, usernames)
+  api_instance.delete_principal_from_group(uuid, opts)
 rescue RBACApiClient::ApiError => e
   puts "Error when calling GroupApi->delete_principal_from_group: #{e}"
 end
@@ -326,12 +329,12 @@ end
 
 This returns an Array which contains the response data (`nil` in this case), status code and headers.
 
-> <Array(nil, Integer, Hash)> delete_principal_from_group_with_http_info(uuid, usernames)
+> <Array(nil, Integer, Hash)> delete_principal_from_group_with_http_info(uuid, opts)
 
 ```ruby
 begin
   # Remove a principal from a group in the tenant
-  data, status_code, headers = api_instance.delete_principal_from_group_with_http_info(uuid, usernames)
+  data, status_code, headers = api_instance.delete_principal_from_group_with_http_info(uuid, opts)
   p status_code # => 2xx
   p headers # => { ... }
   p data # => nil
@@ -345,7 +348,8 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **uuid** | **String** | ID of group to update |  |
-| **usernames** | **String** | A comma separated list of usernames for principals to remove from the group |  |
+| **usernames** | **String** | A comma separated list of usernames for principals to remove from the group | [optional] |
+| **service_accounts** | **String** | A comma separated list of usernames for service accounts to remove from the group | [optional] |
 
 ### Return type
 
@@ -500,7 +504,7 @@ end
 
 ## get_principals_from_group
 
-> <PrincipalPagination> get_principals_from_group(uuid, opts)
+> <GetPrincipalsFromGroup200Response> get_principals_from_group(uuid, opts)
 
 Get a list of principals from a group in the tenant
 
@@ -521,12 +525,16 @@ end
 api_instance = RBACApiClient::GroupApi.new
 uuid = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | ID of group from which to get principals
 opts = {
-  admin_only: 'true', # String | Get only admin users within an account.
+  admin_only: true, # Boolean | Get only admin users within an account.
   principal_username: 'principal_username_example', # String | Parameter for filtering group principals by principal `username` using string contains search.
   limit: 56, # Integer | Parameter for selecting the amount of data returned.
   offset: 56, # Integer | Parameter for selecting the offset of data.
   order_by: 'username', # String | Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username
-  username_only: true # Boolean | Parameter for optionally returning only usernames for principals, bypassing a call to IT.
+  username_only: true, # Boolean | Parameter for optionally returning only usernames for principals, bypassing a call to IT.
+  principal_type: 'service-account', # String | Parameter for selecting the type of principal to be returned.
+  service_account_client_ids: 'service_account_client_ids_example', # String | By specifying a comma separated list of client IDs with this query parameter, RBAC will return an object with the specified client ID and it's matching boolean value to flag whether the client ID is present in the group or not. This query parameter cannot be used along with any other query parameter.
+  service_account_description: 'service_account_description_example', # String | Parameter for filtering the service accounts by their description.
+  service_account_name: 'service_account_name_example' # String | Parameter for filtering the service accounts by their name.
 }
 
 begin
@@ -542,7 +550,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PrincipalPagination>, Integer, Hash)> get_principals_from_group_with_http_info(uuid, opts)
+> <Array(<GetPrincipalsFromGroup200Response>, Integer, Hash)> get_principals_from_group_with_http_info(uuid, opts)
 
 ```ruby
 begin
@@ -550,7 +558,7 @@ begin
   data, status_code, headers = api_instance.get_principals_from_group_with_http_info(uuid, opts)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <PrincipalPagination>
+  p data # => <GetPrincipalsFromGroup200Response>
 rescue RBACApiClient::ApiError => e
   puts "Error when calling GroupApi->get_principals_from_group_with_http_info: #{e}"
 end
@@ -561,16 +569,20 @@ end
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 | **uuid** | **String** | ID of group from which to get principals |  |
-| **admin_only** | **String** | Get only admin users within an account. | [optional][default to &#39;false&#39;] |
+| **admin_only** | **Boolean** | Get only admin users within an account. | [optional][default to false] |
 | **principal_username** | **String** | Parameter for filtering group principals by principal &#x60;username&#x60; using string contains search. | [optional] |
 | **limit** | **Integer** | Parameter for selecting the amount of data returned. | [optional][default to 10] |
 | **offset** | **Integer** | Parameter for selecting the offset of data. | [optional][default to 0] |
 | **order_by** | **String** | Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username | [optional] |
 | **username_only** | **Boolean** | Parameter for optionally returning only usernames for principals, bypassing a call to IT. | [optional] |
+| **principal_type** | **String** | Parameter for selecting the type of principal to be returned. | [optional] |
+| **service_account_client_ids** | **String** | By specifying a comma separated list of client IDs with this query parameter, RBAC will return an object with the specified client ID and it&#39;s matching boolean value to flag whether the client ID is present in the group or not. This query parameter cannot be used along with any other query parameter. | [optional] |
+| **service_account_description** | **String** | Parameter for filtering the service accounts by their description. | [optional] |
+| **service_account_name** | **String** | Parameter for filtering the service accounts by their name. | [optional] |
 
 ### Return type
 
-[**PrincipalPagination**](PrincipalPagination.md)
+[**GetPrincipalsFromGroup200Response**](GetPrincipalsFromGroup200Response.md)
 
 ### Authorization
 

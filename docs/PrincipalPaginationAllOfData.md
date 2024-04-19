@@ -1,4 +1,4 @@
-# RBACApiClient::PrincipalPaginationAllOfDataInner
+# RBACApiClient::PrincipalPaginationAllOfData
 
 ## Class instance methods
 
@@ -11,7 +11,7 @@ Returns the list of classes defined in oneOf.
 ```ruby
 require 'insights-rbac-api-client'
 
-RBACApiClient::PrincipalPaginationAllOfDataInner.openapi_one_of
+RBACApiClient::PrincipalPaginationAllOfData.openapi_one_of
 # =>
 # [
 #   :'Principal',
@@ -28,10 +28,10 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 ```ruby
 require 'insights-rbac-api-client'
 
-RBACApiClient::PrincipalPaginationAllOfDataInner.build(data)
+RBACApiClient::PrincipalPaginationAllOfData.build(data)
 # => #<Principal:0x00007fdd4aab02a0>
 
-RBACApiClient::PrincipalPaginationAllOfDataInner.build(data_that_doesnt_match)
+RBACApiClient::PrincipalPaginationAllOfData.build(data_that_doesnt_match)
 # => nil
 ```
 

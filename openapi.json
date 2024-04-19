@@ -612,12 +612,12 @@
             "description": "Get only admin users within an account. Setting this would ignore the parameters: usernames, email",
             "required": false,
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "enum": [
-                "true",
-                "false"
+                true,
+                false
               ],
-              "default": "false"
+              "default": false
             }
           },
           {
@@ -644,6 +644,19 @@
                 false
               ]
             }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "description": "Parameter for selecting the type of principal to be returned.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "service-account",
+                "user"
+              ]
+            }
           }
         ],
         "responses": {
@@ -652,7 +665,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PrincipalPagination"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PrincipalPagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ServiceAccountPagination"
+                    }
+                  ]
                 }
               }
             }
@@ -1192,12 +1212,12 @@
             "description": "Get only admin users within an account.",
             "required": false,
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "enum": [
-                "true",
-                "false"
+                true,
+                false
               ],
-              "default": "false"
+              "default": false
             }
           },
           {
@@ -1239,6 +1259,46 @@
                 false
               ]
             }
+          },
+          {
+            "in": "query",
+            "name": "principal_type",
+            "required": false,
+            "description": "Parameter for selecting the type of principal to be returned.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "service-account",
+                "user"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "service_account_client_ids",
+            "required": false,
+            "description": "By specifying a comma separated list of client IDs with this query parameter, RBAC will return an object with the specified client ID and it's matching boolean value to flag whether the client ID is present in the group or not. This query parameter cannot be used along with any other query parameter.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "service_account_description",
+            "required": false,
+            "description": "Parameter for filtering the service accounts by their description.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "service_account_name",
+            "required": false,
+            "description": "Parameter for filtering the service accounts by their name.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1247,7 +1307,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PrincipalPagination"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PrincipalPagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ServiceAccountPagination"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ServiceAccountInGroupResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -1301,7 +1371,14 @@
             "name": "usernames",
             "in": "query",
             "description": "A comma separated list of usernames for principals to remove from the group",
-            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "service-accounts",
+            "in": "query",
+            "description": "A comma separated list of usernames for service accounts to remove from the group",
             "schema": {
               "type": "string"
             }
@@ -2463,6 +2540,7 @@
             "in": "query",
             "description": "The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.",
             "required": true,
+            "allowEmptyValue": true,
             "schema": {
               "type": "string"
             }
@@ -2815,7 +2893,34 @@
   },
   "servers": [
     {
-      "url": "/api/rbac/v1"
+      "url": "https://console.redhat.com/{basePath}",
+      "description": "Production Server",
+      "variables": {
+        "basePath": {
+          "default": "api/rbac/v1"
+        }
+      }
+    },
+    {
+      "url": "https://console.stage.redhat.com/{basePath}",
+      "description": "Staging Server",
+      "variables": {
+        "basePath": {
+          "default": "api/rbac/v1"
+        }
+      }
+    },
+    {
+      "url": "http://localhost:{port}/{basePath}",
+      "description": "Development Server",
+      "variables": {
+        "port": {
+          "default": "8000"
+        },
+        "basePath": {
+          "default": "api/rbac/v1"
+        }
+      }
     }
   ],
   "components": {
@@ -3129,7 +3234,8 @@
             "oneOf": [
               {
                 "type": "string"
-              }, {
+              },
+              {
                 "type": "integer"
               }
             ],
@@ -3196,6 +3302,108 @@
             }
           }
         ]
+      },
+      "ServiceAccount": {
+        "required": [
+          "clientID",
+          "username",
+          "type"
+        ],
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "service-account-fe593ba0-9c62-013c-1dc2-6aa2427b506a"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "service-account"
+            ]
+          },
+          "clientID": {
+            "type": "string",
+            "example": "fe593ba0-9c62-013c-1dc2-6aa2427b506a"
+          },
+          "name": {
+            "type": "string",
+            "example": "MyServiceAccount"
+          },
+          "description": {
+            "type": "string",
+            "example": "My new shiny Service Account"
+          },
+          "owner": {
+            "type": "string",
+            "example": "smithj"
+          },
+          "time_created": {
+            "type": "integer",
+            "example": 1706100532
+          }
+        }
+      },
+      "ServiceAccountIn": {
+        "required": [
+          "type",
+          "clientID"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "service-account"
+            ]
+          },
+          "clientID": {
+            "type": "string",
+            "example": "fe593ba0-9c62-013c-1dc2-6aa2427b506a"
+          }
+        }
+      },
+      "ServiceAccountPagination": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "type": "object",
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ServiceAccount"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ServiceAccountInGroupResponse": {
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMeta"
+          },
+          "links": {
+            "description": "The links object for this particular response will be empty, since there is no pagination available for the query parameter",
+            "type": "object",
+            "example": {}
+          },
+          "data": {
+            "description": "Object which indicates whether the given service account UUIDs in the query parameter are present in the specified group or not",
+            "type": "object",
+            "additionalProperties": {
+              "description": "The response is a map of the form \"UUID\": (true|false)",
+              "type": "boolean"
+            },
+            "example": {
+              "dd946f24-cfda-11ee-acb6-7b2702ff4dc8": true,
+              "3e728bb0-b167-013c-c455-6aa2427b506c": false
+            }
+          }
+        }
       },
       "Group": {
         "required": [
@@ -3273,7 +3481,14 @@
           "principals": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PrincipalIn"
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PrincipalIn"
+                },
+                {
+                  "$ref": "#/components/schemas/ServiceAccountIn"
+                }
+              ]
             }
           }
         }
@@ -3741,7 +3956,10 @@
                     }
                   ]
                 },
-                "example": ["value1", "value2"],
+                "example": [
+                  "value1",
+                  "value2"
+                ],
                 "nullable": true
               }
             ]

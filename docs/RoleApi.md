@@ -1,6 +1,6 @@
 # RBACApiClient::RoleApi
 
-All URIs are relative to */api/rbac/v1*
+All URIs are relative to *https://console.redhat.com/api/rbac/v1*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |

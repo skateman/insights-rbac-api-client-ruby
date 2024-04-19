@@ -1,6 +1,6 @@
 # RBACApiClient::PrincipalApi
 
-All URIs are relative to */api/rbac/v1*
+All URIs are relative to *https://console.redhat.com/api/rbac/v1*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
@@ -9,7 +9,7 @@ All URIs are relative to */api/rbac/v1*
 
 ## list_principals
 
-> <PrincipalPagination> list_principals(opts)
+> <ListPrincipals200Response> list_principals(opts)
 
 List the principals for a tenant
 
@@ -36,9 +36,10 @@ opts = {
   sort_order: 'asc', # String | The sort order of the query, either ascending or descending. Defaults to ascending.
   email: 'email_example', # String | E-mail address of principal to search for. Could be combined with match_criteria for searching.
   status: 'enabled', # String | Set the status of users to get back.
-  admin_only: 'true', # String | Get only admin users within an account. Setting this would ignore the parameters: usernames, email
+  admin_only: true, # Boolean | Get only admin users within an account. Setting this would ignore the parameters: usernames, email
   order_by: 'username', # String | Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username
-  username_only: true # Boolean | Parameter for optionally returning only usernames for principals, bypassing a call to IT.
+  username_only: true, # Boolean | Parameter for optionally returning only usernames for principals, bypassing a call to IT.
+  type: 'service-account' # String | Parameter for selecting the type of principal to be returned.
 }
 
 begin
@@ -54,7 +55,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<PrincipalPagination>, Integer, Hash)> list_principals_with_http_info(opts)
+> <Array(<ListPrincipals200Response>, Integer, Hash)> list_principals_with_http_info(opts)
 
 ```ruby
 begin
@@ -62,7 +63,7 @@ begin
   data, status_code, headers = api_instance.list_principals_with_http_info(opts)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <PrincipalPagination>
+  p data # => <ListPrincipals200Response>
 rescue RBACApiClient::ApiError => e
   puts "Error when calling PrincipalApi->list_principals_with_http_info: #{e}"
 end
@@ -79,13 +80,14 @@ end
 | **sort_order** | **String** | The sort order of the query, either ascending or descending. Defaults to ascending. | [optional] |
 | **email** | **String** | E-mail address of principal to search for. Could be combined with match_criteria for searching. | [optional] |
 | **status** | **String** | Set the status of users to get back. | [optional][default to &#39;enabled&#39;] |
-| **admin_only** | **String** | Get only admin users within an account. Setting this would ignore the parameters: usernames, email | [optional][default to &#39;false&#39;] |
+| **admin_only** | **Boolean** | Get only admin users within an account. Setting this would ignore the parameters: usernames, email | [optional][default to false] |
 | **order_by** | **String** | Parameter for ordering principals by value. For inverse ordering, supply &#39;-&#39; before the param value, such as: ?order_by&#x3D;-username | [optional] |
 | **username_only** | **Boolean** | Parameter for optionally returning only usernames for principals, bypassing a call to IT. | [optional] |
+| **type** | **String** | Parameter for selecting the type of principal to be returned. | [optional] |
 
 ### Return type
 
-[**PrincipalPagination**](PrincipalPagination.md)
+[**ListPrincipals200Response**](ListPrincipals200Response.md)
 
 ### Authorization
 

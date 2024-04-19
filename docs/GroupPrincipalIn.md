@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **principals** | [**Array&lt;PrincipalIn&gt;**](PrincipalIn.md) |  |  |
+| **principals** | [**Array&lt;GroupPrincipalInPrincipalsInner&gt;**](GroupPrincipalInPrincipalsInner.md) |  |  |
 
 ## Example
 

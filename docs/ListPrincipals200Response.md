@@ -1,4 +1,4 @@
-# RBACApiClient::CrossAccountRequestPaginationAllOfDataInner
+# RBACApiClient::ListPrincipals200Response
 
 ## Class instance methods
 
@@ -11,11 +11,11 @@ Returns the list of classes defined in oneOf.
 ```ruby
 require 'insights-rbac-api-client'
 
-RBACApiClient::CrossAccountRequestPaginationAllOfDataInner.openapi_one_of
+RBACApiClient::ListPrincipals200Response.openapi_one_of
 # =>
 # [
-#   :'CrossAccountRequestByAccount',
-#   :'CrossAccountRequestByUserId'
+#   :'PrincipalPagination',
+#   :'ServiceAccountPagination'
 # ]
 ```
 
@@ -28,10 +28,10 @@ Find the appropriate object from the `openapi_one_of` list and casts the data in
 ```ruby
 require 'insights-rbac-api-client'
 
-RBACApiClient::CrossAccountRequestPaginationAllOfDataInner.build(data)
-# => #<CrossAccountRequestByAccount:0x00007fdd4aab02a0>
+RBACApiClient::ListPrincipals200Response.build(data)
+# => #<PrincipalPagination:0x00007fdd4aab02a0>
 
-RBACApiClient::CrossAccountRequestPaginationAllOfDataInner.build(data_that_doesnt_match)
+RBACApiClient::ListPrincipals200Response.build(data_that_doesnt_match)
 # => nil
 ```
 
@@ -43,7 +43,7 @@ RBACApiClient::CrossAccountRequestPaginationAllOfDataInner.build(data_that_doesn
 
 #### Return type
 
-- `CrossAccountRequestByAccount`
-- `CrossAccountRequestByUserId`
+- `PrincipalPagination`
+- `ServiceAccountPagination`
 - `nil` (if no type matches)
 
